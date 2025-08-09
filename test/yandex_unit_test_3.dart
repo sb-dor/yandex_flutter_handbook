@@ -104,7 +104,7 @@ void main() {
         //
         when(mockIUserRepository.updateUserName(any, any)).thenThrow(ArgumentError());
 
-        expect(() => mockIUserRepository.updateUserName(any, any), throwsA(isA<ArgumentError>()));
+        expect(() => mockIUserRepository.updateUserName(1, ""), throwsA(isA<ArgumentError>()));
       });
 
       //
@@ -115,7 +115,7 @@ void main() {
         ).thenThrow(StateError("User does not exist"));
 
         expect(
-          () => mockIUserRepository.updateUserName(1, ""),
+          () => mockIUserRepository.updateUserName(1, "Test"),
           throwsA(isA<StateError>().having((e) => e.message, "message", "User does not exist")),
         );
       });
