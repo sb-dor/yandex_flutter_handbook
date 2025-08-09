@@ -20,7 +20,7 @@ void main() {
 
   group("User repository test", () {
     //
-    group('User repository getUserById test', () {
+    group('getUserById test', () {
       //
       test('function should return user', () {
         //
@@ -37,6 +37,28 @@ void main() {
         when(mockIUserRepository.getUserById(any)).thenThrow(StateError("User was not found"));
 
         expect(() => mockIUserRepository.getUserById(1), throwsA(isA<StateError>()));
+      });
+    });
+
+    //
+    group('removeUserById test ', () {
+      //
+      test('removeUserById should successfully remove user and return true', () {
+        //
+        when(mockIUserRepository.removeUserById(any)).thenAnswer((_) async => true);
+
+        final removeUser = mockIUserRepository.removeUserById(1);
+
+        expect(removeUser, completion(isTrue));
+        verify(mockIUserRepository.removeUserById(1)).called(1);
+      });
+      //
+
+      test('removeUserById should throw an exception', () {
+        //
+        when(mockIUserRepository.removeUserById(any)).thenThrow(StateError("User was not found"));
+
+        expect(() => mockIUserRepository.removeUserById(1), throwsA(isA<StateError>()));
       });
     });
   });
