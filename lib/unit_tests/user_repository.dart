@@ -1,31 +1,33 @@
 import 'package:yandex_flutter_handbook/unit_tests/user_model.dart';
 
 abstract interface class IUserRepository {
-  UserModel getUserById(int id);
+  Future<UserModel> getUserById(int id);
 
-  void removeUserById(int id);
+  Future<bool> removeUserById(int id);
 
-  UserModel createUser(String name);
+  Future<UserModel> createUser(String name);
 
-  UserModel updateUserName(int id, String name);
+  Future<UserModel> updateUserName(int id, String name);
 }
 
 final class UserRepositoryImpl implements IUserRepository {
   @override
-  UserModel createUser(String name) {
+  Future<UserModel> createUser(String name) {
     throw UnimplementedError();
   }
 
   @override
-  UserModel getUserById(int id) {
+  Future<UserModel> getUserById(int id) {
     throw UnimplementedError();
   }
 
   @override
-  void removeUserById(int id) {}
+  Future<bool> removeUserById(int id) {
+    throw UnimplementedError();
+  }
 
   @override
-  UserModel updateUserName(int id, String name) {
+  Future<UserModel> updateUserName(int id, String name) {
     throw UnimplementedError();
   }
 }

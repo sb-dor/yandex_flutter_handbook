@@ -8,7 +8,7 @@ class MockedUserRepository implements IUserRepository {
   int _nextId = 1;
 
   @override
-  UserModel createUser(String name) {
+  Future<UserModel> createUser(String name) async {
     if (name.isEmpty) throw ArgumentError('User name cannot be empty');
     final user = UserModel(id: _nextId++, name: name);
     _users[user.id] = user;
@@ -16,20 +16,21 @@ class MockedUserRepository implements IUserRepository {
   }
 
   @override
-  UserModel getUserById(int id) {
+  Future<UserModel> getUserById(int id) async {
     final user = _users[id];
     if (user == null) throw StateError('User not found');
     return user;
   }
 
   @override
-  void removeUserById(int id) {
+  Future<bool> removeUserById(int id) async {
     if (!_users.containsKey(id)) throw StateError('User not found');
     _users.remove(id);
+    return true;
   }
 
   @override
-  UserModel updateUserName(int id, String name) {
+  Future<UserModel> updateUserName(int id, String name) async {
     final user = _users[id];
     if (user == null) throw StateError('User not found');
     final updated = UserModel(id: id, name: name);
@@ -47,9 +48,9 @@ void main() {
 
   group('UserRepositoryImpl', () {
     group('getUserById method', () {
-      test('should return correct UserModel for existing user specified by Id', () {
-        final user = repository.createUser('Alice');
-        final fetched = repository.getUserById(user.id);
+      test('should return correct UserModel for existing user specified by Id', () async {
+        final user = await repository.createUser('Alice');
+        final fetched = await repository.getUserById(user.id);
         expect(fetched.id, user.id);
         expect(fetched.name, 'Alice');
       });
@@ -60,8 +61,8 @@ void main() {
     });
 
     group('removeUserById method', () {
-      test('should remove correctly an existing user specified by Id', () {
-        final user = repository.createUser('Bob');
+      test('should remove correctly an existing user specified by Id', () async {
+        final user = await repository.createUser('Bob');
         repository.removeUserById(user.id);
         expect(() => repository.getUserById(user.id), throwsA(isA<StateError>()));
       });
@@ -72,8 +73,8 @@ void main() {
     });
 
     group('createUser method', () {
-      test('should create new User if all conditions are correct', () {
-        final user = repository.createUser('Charlie');
+      test('should create new User if all conditions are correct', () async {
+        final user = await repository.createUser('Charlie');
         expect(user.id, isNonZero);
         expect(user.name, 'Charlie');
       });
@@ -84,9 +85,9 @@ void main() {
     });
 
     group('updateUserName method', () {
-      test('should return updated User model', () {
-        final user = repository.createUser('Dave');
-        final updated = repository.updateUserName(user.id, 'David');
+      test('should return updated User model', () async {
+        final user = await repository.createUser('Dave');
+        final updated = await repository.updateUserName(user.id, 'David');
         expect(updated.id, user.id);
         expect(updated.name, 'David');
       });
