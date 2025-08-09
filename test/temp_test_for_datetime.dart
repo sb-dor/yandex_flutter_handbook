@@ -11,6 +11,7 @@ void main() {
 
       // --- 2. Clock по умолчанию будет получать время у fakeAsync ---
       final clockNow = clock.now();
+      // final fixedClockNow = Clock.fixed(fixedDateTime);
 
       print('Сразу после старта:');
       print('DateTime: $fixedDateTime');
