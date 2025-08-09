@@ -81,16 +81,45 @@ void main() {
 
     group('createUser method', () {
       //
-      test('should create new User if all conditions are correct', () {});
+      test('should create new User if all conditions are correct', () async {
+        //
+        final name = "TestUser";
+        final user = await mockedUserRepository.createUser(name);
+        expect(user, isNotNull);
+        expect(user.name, name);
+      });
 
-      test('should throw exception if user name is empty', () {});
+      test('should throw exception if user name is empty', () async {
+        //
+        final name = "";
+        final user = mockedUserRepository.createUser(name);
+        expect(user, throwsA(isA<ArgumentError>()));
+      });
     });
 
     group('updateUserName method', () {
       //
-      test('should return updated User model', () {});
+      test('should return updated User model', () async {
+        //
+        final name = "TestUser 2";
+        final id = 5;
+        final updateUser = await mockedUserRepository.updateUserName(id, name);
+        expect(updateUser, isNotNull);
+      });
 
-      test('should throw exception if user does not exist', () {});
+      test('should throw exception if user does not exist', () {
+        final name = "TestUser 2";
+        final id = 10;
+        final updateUser = mockedUserRepository.updateUserName(id, name);
+        expect(updateUser, throwsA(isA<StateError>()));
+      });
+
+      test('should throw exception if name does not exist', () {
+        final name = "";
+        final id = 10;
+        final updateUser = mockedUserRepository.updateUserName(id, name);
+        expect(updateUser, throwsA(isA<ArgumentError>()));
+      });
     });
   });
 }
