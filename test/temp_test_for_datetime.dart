@@ -2,6 +2,7 @@ import 'package:clock/clock.dart';
 import 'package:fake_async/fake_async.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+// Clock — это, по сути, «розетка времени», а DateTime — просто «снимок времени».
 void main() {
   test('Разница между DateTime и Clock с fakeAsync', () {
     fakeAsync((fa) {
