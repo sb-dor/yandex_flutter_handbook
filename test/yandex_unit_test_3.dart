@@ -20,7 +20,7 @@ void main() {
 
   group("User repository test", () {
     //
-    group('getUserById test', () {
+    group('getUserById method', () {
       //
       test('function should return user', () {
         //
@@ -41,7 +41,7 @@ void main() {
     });
 
     //
-    group('removeUserById test ', () {
+    group('removeUserById method ', () {
       //
       test('removeUserById should successfully remove user and return true', () {
         //
@@ -59,6 +59,30 @@ void main() {
         when(mockIUserRepository.removeUserById(any)).thenThrow(StateError("User was not found"));
 
         expect(() => mockIUserRepository.removeUserById(1), throwsA(isA<StateError>()));
+      });
+    });
+
+    //
+    group('createUser method', () {
+      //
+      test('function should successfully create user', () {
+        //
+        when(mockIUserRepository.createUser(any)).thenAnswer((_) async => testUserModel);
+
+        final createUser = mockIUserRepository.createUser("test");
+
+        expect(createUser, completion(isNotNull));
+        verify(mockIUserRepository.createUser(any)).called(1);
+      });
+
+      //
+      test('function should throw an Argument error', () {
+        //
+        when(
+          mockIUserRepository.createUser(any),
+        ).thenThrow(ArgumentError("Parameter name should not be empty"));
+
+        expect(() => mockIUserRepository.createUser(""), throwsA(isA<ArgumentError>()));
       });
     });
   });
