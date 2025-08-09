@@ -85,5 +85,40 @@ void main() {
         expect(() => mockIUserRepository.createUser(""), throwsA(isA<ArgumentError>()));
       });
     });
+
+    //
+    group('updateUserName method', () {
+      //
+      test('function should successfully update user', () {
+        //
+        when(mockIUserRepository.updateUserName(any, any)).thenAnswer((_) async => testUserModel);
+
+        final updateUser = mockIUserRepository.updateUserName(1, "test");
+
+        expect(updateUser, completion(isNotNull));
+        verify(mockIUserRepository.updateUserName(any, any)).called(1);
+      });
+
+      //
+      test('function should throw an Argument errordue to the empty parameter', () {
+        //
+        when(mockIUserRepository.updateUserName(any, any)).thenThrow(ArgumentError());
+
+        expect(() => mockIUserRepository.updateUserName(any, any), throwsA(isA<ArgumentError>()));
+      });
+
+      //
+      test('function should throw a StateError due to the absence of a user', () {
+        //
+        when(
+          mockIUserRepository.updateUserName(any, any),
+        ).thenThrow(StateError("User does not exist"));
+
+        expect(
+          () => mockIUserRepository.updateUserName(1, ""),
+          throwsA(isA<StateError>().having((e) => e.message, "message", "User does not exist")),
+        );
+      });
+    });
   });
 }
