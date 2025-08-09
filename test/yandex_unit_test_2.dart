@@ -68,8 +68,8 @@ void main() {
       //
       test('should remove correctly an existing user specified by Id', () async {
         final userid = 5;
-        final remove = mockedUserRepository.removeUserById(userid);
-        expect(remove, completion(isTrue));
+        final remove = await mockedUserRepository.removeUserById(userid);
+        expect(remove, isTrue);
       });
 
       test('should throw exception if user does not exist', () {
@@ -103,8 +103,8 @@ void main() {
         //
         final name = "TestUser 2";
         final id = 5;
-        final updateUser = await mockedUserRepository.updateUserName(id, name);
-        expect(updateUser, isNotNull);
+        final updateUser = mockedUserRepository.updateUserName(id, name);
+        expect(updateUser, completion(isNotNull));
       });
 
       test('should throw exception if user does not exist', () {
