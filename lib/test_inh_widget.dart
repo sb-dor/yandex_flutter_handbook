@@ -1,5 +1,16 @@
 import 'package:flutter/material.dart';
 
+/// update should notify works if you use [dependOnInheritedWidgetOfExactType] + [updateShouldNotify] returns true
+/// even if you use [dependOnInheritedWidgetOfExactType] but [updateShouldNotify] returns false = [didChangeDependencies] will not work
+/// even if [updateShouldNotify] returns true but you don't use [dependOnInheritedWidgetOfExactType] = [didChangeDependencies] will not work
+
+// if you want [didChangeDependencies] to work then - you have to use [dependOnInheritedWidgetOfExactType] + [updateShouldNotify] should return true
+
+
+/// [didUpdateWidget] is about the rebuilding same widget by parent
+/// for ex: parent called setState and one of it's children rebuilt, so if you use [didUpdateWidget] in child it will show
+/// whether same widget's element changed with new one (so rebuilt)
+
 class TestInhWidget extends InheritedWidget {
   const TestInhWidget({super.key, required this.state, required super.child});
 
@@ -73,7 +84,6 @@ class _IsolatedWidget extends StatefulWidget {
 }
 
 class _IsolatedWidgetState extends State<_IsolatedWidget> {
-
   @override
   void didChangeDependencies() {
     print("was called method: didChangeDependencies");
