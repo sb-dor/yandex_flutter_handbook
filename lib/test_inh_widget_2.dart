@@ -3,17 +3,25 @@ import 'package:flutter/material.dart';
 class TestInhWidget2 extends InheritedWidget {
   const TestInhWidget2({super.key, required super.child, required this.listOfIntegers});
 
-  static TestInhWidget2 of(BuildContext context) {
-    final TestInhWidget2? result = context.dependOnInheritedWidgetOfExactType<TestInhWidget2>();
-    assert(result != null, 'No TestInhWidget2 found in context');
-    return result!;
+  static TestInhWidget2 of(BuildContext context, {bool listen = false}) {
+    if (listen) {
+      final TestInhWidget2? result = context.dependOnInheritedWidgetOfExactType<TestInhWidget2>();
+      assert(result != null, 'No TestInhWidget2 found in context');
+      return result!;
+    }
+    final inheritedWidget = context
+        .getElementForInheritedWidgetOfExactType<TestInhWidget2>()
+        ?.widget;
+    final checkInhWidget = inheritedWidget is TestInhWidget2;
+    assert(checkInhWidget, "TestInhWidget2 not found in context");
+    return (inheritedWidget as TestInhWidget2);
   }
 
   final List<int> listOfIntegers;
 
   @override
   bool updateShouldNotify(TestInhWidget2 old) {
-    return true;
+    return !identical(old.listOfIntegers, listOfIntegers);
   }
 }
 
@@ -28,8 +36,12 @@ class _TestInhWidget2ConfigState extends State<TestInhWidget2Config> {
   List<int> integers = [];
 
   void addInt() {
+    // test only
+
+    // setState must and should be called in order for the Widget to know whether it should be rebuilt or not
     setState(() {
-      integers.add(1);
+      final copiesList = List.of(integers)..add(1);
+      integers = copiesList;
     });
   }
 
@@ -42,7 +54,7 @@ class _TestInhWidget2ConfigState extends State<TestInhWidget2Config> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextButton(onPressed: addInt, child: Icon(Icons.add)),
-            TestInhWidget2(listOfIntegers: integers, child:  _TestInhWidget2Text()),
+            TestInhWidget2(listOfIntegers: integers, child: const _TestInhWidget2Text()),
           ],
         ),
       ),
@@ -72,6 +84,6 @@ class _TestInhWidget2TextState extends State<_TestInhWidget2Text> {
 
   @override
   Widget build(BuildContext context) {
-    return Text(TestInhWidget2.of(context).listOfIntegers.toString());
+    return Text(TestInhWidget2.of(context, listen: true).listOfIntegers.toString());
   }
 }
