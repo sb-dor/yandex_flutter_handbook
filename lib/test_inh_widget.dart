@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 /// even if you use [dependOnInheritedWidgetOfExactType] but [updateShouldNotify] returns false = [didChangeDependencies] will not work
 /// even if [updateShouldNotify] returns true but you don't use [dependOnInheritedWidgetOfExactType] = [didChangeDependencies] will not work
 
-// if you want [didChangeDependencies] to work then - you have to use [dependOnInheritedWidgetOfExactType] + [updateShouldNotify] should return true
-
+/// if you want [didChangeDependencies] to work then - you have to use [dependOnInheritedWidgetOfExactType] + [updateShouldNotify] should return true
 
 /// [didUpdateWidget] is about the rebuilding same widget by parent
 /// for ex: parent called setState and one of it's children rebuilt, so if you use [didUpdateWidget] in child it will show
@@ -69,6 +68,7 @@ class _MainScreen extends StatefulWidget {
 class _MainScreenState extends State<_MainScreen> {
   @override
   Widget build(BuildContext context) {
+    MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(title: Text("Embrace the ugly the miserable")),
       body: const _IsolatedWidget(),
