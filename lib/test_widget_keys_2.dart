@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class TestWidgetKeys2 extends StatefulWidget {
@@ -15,7 +17,10 @@ class _TestWidgetKeys2State extends State<TestWidgetKeys2> {
     super.initState();
     _widgets = List.generate(
       3,
-      (i) => _TestingWidgetWithKeyAndState(key: ValueKey("key_$i"), index: i),
+      (i) => _TestingWidgetWithKeyAndState(
+        key: ValueKey("key_$i"),
+        uniqueNumber: (i + 1) * Random().nextInt(100),
+      ),
     ).toList();
   }
 
@@ -39,9 +44,9 @@ class _TestWidgetKeys2State extends State<TestWidgetKeys2> {
 }
 
 class _TestingWidgetWithKeyAndState extends StatefulWidget {
-  const _TestingWidgetWithKeyAndState({super.key, required this.index});
+  const _TestingWidgetWithKeyAndState({super.key, required this.uniqueNumber});
 
-  final int index;
+  final int uniqueNumber;
 
   @override
   State<_TestingWidgetWithKeyAndState> createState() => _TestingWidgetWithKeyAndStateState();
@@ -67,7 +72,7 @@ class _TestingWidgetWithKeyAndStateState extends State<_TestingWidgetWithKeyAndS
             onPressed: () {
               increment();
             },
-            child: Text("index of ${widget.index}: $_counter"),
+            child: Text("uniqueKey ${widget.uniqueNumber}: $_counter"),
           ),
         ],
       ),
