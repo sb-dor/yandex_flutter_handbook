@@ -1,0 +1,76 @@
+import 'package:flutter/material.dart';
+
+class TestWidgetKeys2 extends StatefulWidget {
+  const TestWidgetKeys2({super.key});
+
+  @override
+  State<TestWidgetKeys2> createState() => _TestWidgetKeys2State();
+}
+
+class _TestWidgetKeys2State extends State<TestWidgetKeys2> {
+  List<Widget> _widgets = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _widgets = List.generate(
+      3,
+      (i) => _TestingWidgetWithKeyAndState(key: ValueKey("key_$i"), index: i),
+    ).toList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Test widget keys 2")),
+      floatingActionButton: FloatingActionButton(
+        child: Text("Shuffle"),
+        onPressed: () {
+          setState(() {
+            final copyList = List.of(_widgets);
+            copyList.shuffle();
+            _widgets = copyList;
+          });
+        },
+      ),
+      body: SafeArea(child: ListView(children: _widgets)),
+    );
+  }
+}
+
+class _TestingWidgetWithKeyAndState extends StatefulWidget {
+  const _TestingWidgetWithKeyAndState({super.key, required this.index});
+
+  final int index;
+
+  @override
+  State<_TestingWidgetWithKeyAndState> createState() => _TestingWidgetWithKeyAndStateState();
+}
+
+class _TestingWidgetWithKeyAndStateState extends State<_TestingWidgetWithKeyAndState> {
+  int _counter = 0;
+
+  void increment() {
+    setState(() {
+      _counter++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 100,
+      height: 100,
+      child: Column(
+        children: [
+          TextButton(
+            onPressed: () {
+              increment();
+            },
+            child: Text("index of ${widget.index}: $_counter"),
+          ),
+        ],
+      ),
+    );
+  }
+}

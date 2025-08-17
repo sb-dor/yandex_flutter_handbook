@@ -38,7 +38,6 @@ class _TestWidgetKeysState extends State<TestWidgetKeys> {
       ),
       Padding(
         key: ValueKey<String>(Colors.primaries[random + 2].toString()),
-
         padding: const EdgeInsets.all(8.0),
         child: TestColoredContainer(color: Colors.primaries[random + 2]),
       ),
