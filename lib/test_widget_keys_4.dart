@@ -15,7 +15,7 @@ class _TestWidgetKeys4State extends State<TestWidgetKeys4> {
   @override
   void initState() {
     super.initState();
-    _children = [_TestStfKeys(key: ValueKey("key_1")), _TestStfKeys(key: ValueKey("key_2"))];
+    _children = [_TestStfKeys(key: ValueKey(0)), _TestStfKeys(key: ValueKey(1))];
   }
 
   @override
@@ -60,6 +60,18 @@ class _TestStfKeysState extends State<_TestStfKeys> {
     super.initState();
     _color = Colors.primaries[Random().nextInt(Colors.primaries.length)];
     print("calling f initiState");
+  }
+
+  @override
+  void didUpdateWidget(covariant _TestStfKeys oldWidget) {
+    print("calling f didUpdateWidget");
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void dispose() {
+    print("calling f dispose");
+    super.dispose();
   }
 
   @override
