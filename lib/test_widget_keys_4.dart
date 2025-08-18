@@ -21,12 +21,26 @@ class _TestWidgetKeys4State extends State<TestWidgetKeys4> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            _children.insert(0, _children.removeAt(1));
-          });
-        },
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+              setState(() {
+                _children.insert(0, _children.removeAt(1));
+              });
+            },
+          ),
+          FloatingActionButton(
+            onPressed: () {
+              setState(() {
+                _children.removeAt(0);
+                _children.insert(0, _TestStfKeys(key: ValueKey(Random().nextInt(100))));
+              });
+            },
+          ),
+        ],
       ),
       appBar: AppBar(title: Text("Test keys 4")),
       body: Row(children: _children),
