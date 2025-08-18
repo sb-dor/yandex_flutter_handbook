@@ -54,6 +54,7 @@ class _TestStfKeys extends StatefulWidget {
 
 class _TestStfKeysState extends State<_TestStfKeys> {
   late final Color _color;
+  int _counter = 0;
 
   @override
   void initState() {
@@ -76,6 +77,18 @@ class _TestStfKeysState extends State<_TestStfKeys> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(width: 100, height: 100, color: _color);
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _counter++;
+        });
+      },
+      child: Container(
+        width: 100,
+        height: 100,
+        color: _color,
+        child: Center(child: Text("$_counter")),
+      ),
+    );
   }
 }

@@ -9,5 +9,5 @@ import 'test_widget_keys_4.dart';
 import 'test_widget_keys_5.dart';
 
 void main() {
-  runApp(MaterialApp(home: TestWidgetKeys5()));
+  runApp(MaterialApp(home: TestWidgetKeys4()));
 }
