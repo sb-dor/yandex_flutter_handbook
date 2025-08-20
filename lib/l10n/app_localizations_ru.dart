@@ -12,7 +12,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get appTitle => 'Демо Flutter i18n';
 
   @override
-  String pushCount(int count, String style) {
+  String pushCount(int count, DateTime date, String style) {
+    final intl.DateFormat dateDateFormat = intl.DateFormat.yMd(localeName);
+    final String dateString = dateDateFormat.format(date);
+
     String _temp0 = intl.Intl.selectLogic(style, {
       'formal': 'Вы заработали',
       'informal': 'Ты заработал',
@@ -27,6 +30,6 @@ class AppLocalizationsRu extends AppLocalizations {
       one: '$count печеньку',
       zero: 'ни одной печеньки',
     );
-    return '$_temp0 $_temp1';
+    return '$_temp0 $_temp1 ($dateString)';
   }
 }

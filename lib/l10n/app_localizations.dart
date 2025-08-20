@@ -107,8 +107,8 @@ abstract class AppLocalizations {
   /// How many times the button has been pushed
   ///
   /// In en, this message translates to:
-  /// **'You have pushed the button {count} times:'**
-  String pushCount(int count, String style);
+  /// **'You have earned {count, plural, =0{no cookies} =1{{count} cookie} many{{count} cookies} other{{count} cookies}} ({date})'**
+  String pushCount(int count, DateTime date, String style);
 }
 
 class _AppLocalizationsDelegate

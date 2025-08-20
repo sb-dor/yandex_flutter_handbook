@@ -53,7 +53,11 @@ class _LocalizationHomeWidgetState extends State<_LocalizationHomeWidget> {
           onPressed: () {
             increment();
           },
-          child: Text(AppLocalizations.of(context)!.pushCount(_counter, PronounStyle.informal)),
+          child: Text(
+            AppLocalizations.of(
+              context,
+            )!.pushCount(_counter, DateTime.now(), PronounStyle.informal),
+          ),
         ),
       ),
     );

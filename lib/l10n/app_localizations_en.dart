@@ -12,7 +12,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appTitle => 'Flutter i18n Demo';
 
   @override
-  String pushCount(int count, String style) {
-    return 'You have pushed the button $count times:';
+  String pushCount(int count, DateTime date, String style) {
+    final intl.DateFormat dateDateFormat = intl.DateFormat.yMd(localeName);
+    final String dateString = dateDateFormat.format(date);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count cookies',
+      many: '$count cookies',
+      one: '$count cookie',
+      zero: 'no cookies',
+    );
+    return 'You have earned $_temp0 ($dateString)';
   }
 }
