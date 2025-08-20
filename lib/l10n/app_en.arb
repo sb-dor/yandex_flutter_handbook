@@ -1,0 +1,16 @@
+{
+  "appTitle": "Flutter i18n Demo",
+  "@appTitle": {
+    "description": "AppBar title"
+  },
+  "pushCount": "You have pushed the button {count} times:",
+  "@pushCount": {
+    "description": "How many times the button has been pushed",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
+}

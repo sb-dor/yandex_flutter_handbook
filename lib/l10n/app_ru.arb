@@ -1,0 +1,16 @@
+{
+  "appTitle": "Демо Flutter i18n",
+  "@appTitle": {
+    "description": "Заголовок AppBar"
+  },
+  "pushCount": "{style, select, formal{Вы заработали} informal{Ты заработал} other{Вы заработали}} {count, plural, =0{ни одной печеньки} =1{{count} печеньку} few{{count} печеньки} many{{count} печенек} other{{count} печенек}}",
+  "@pushCount": {
+    "description": "Сколько раз была нажата кнопка",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
+}
