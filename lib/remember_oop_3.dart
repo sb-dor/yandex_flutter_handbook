@@ -1,35 +1,49 @@
 void main() {
-  final assortment = Assortment([Product(10), Product(12)]);
-  final product = Product(25);
+  final assortment = Assortment(1, [Product(1, 10), Product(2, 12)]);
+  final product = Product(3, 25);
 
   CartWithDiscount cartWithDiscount = CartWithDiscount(
     cartItems: [CartItem(assortment, 2), CartItem(product, 1)],
   );
   print(cartWithDiscount.total);
   print(cartWithDiscount.totalWithDiscount(10));
-  cartWithDiscount.printEachItemPrice();
+  // cartWithDiscount.printEachItemPrice();
+  // cartWithDiscount.printEachItemType();
+  cartWithDiscount.addToCart(Product(4, 66));
+  print(cartWithDiscount.total);
+  print(cartWithDiscount.totalWithDiscount(10));
 }
 
 sealed class ProductInh {
+  int get id;
+
   double get price;
 }
 
 class Product extends ProductInh {
-  Product(this._price);
+  Product(this._id, this._price);
 
+  final int _id;
   final double _price;
 
   @override
   double get price => _price;
+
+  @override
+  int get id => _id;
 }
 
 class Assortment extends ProductInh {
-  Assortment(this._products);
+  Assortment(this._id, this._products);
 
+  final int _id;
   final List<Product> _products;
 
   @override
   double get price => _products.fold(0.0, (sum, prod) => sum += prod.price);
+
+  @override
+  int get id => _id;
 }
 //
 //
@@ -45,22 +59,44 @@ class Assortment extends ProductInh {
 //
 //
 
-mixin DiscountMixin on Cart {
+mixin Prices on Cart {
   double totalWithDiscount(double discountPercent) {
     if (discountPercent <= 0) return total;
     return total - (total * discountPercent / 100);
   }
+
+  double get averagePrice => total / cartItems.length;
 }
 
 mixin TotalCartMixin on Cart {
   void printEachItemPrice() {
     for (final each in cartItems) {
-      print(each.cartItem.price);
+      print(each.productInh.price);
+    }
+  }
+
+  void printEachItemType() {
+    for (final each in cartItems) {
+      print(each.productInh.runtimeType);
     }
   }
 }
 
-class CartWithDiscount = Cart with DiscountMixin, TotalCartMixin;
+mixin AddToCart on Cart {
+  void addToCart(ProductInh productType) {
+    cartItems.add(CartItem(productType, 1));
+  }
+
+  void removeFromCart(ProductInh productType) {
+    cartItems.removeWhere((element) => element.productInh.id == productType.id);
+  }
+}
+
+mixin QtyOfProducts on Cart {
+  int get qtyOfAllSelectedProducts => cartItems.fold(0, (sum, item) => sum += item.qty.toInt());
+}
+
+class CartWithDiscount = Cart with Prices, TotalCartMixin, AddToCart, QtyOfProducts;
 
 class Cart {
   const Cart({this.cartItems = const []});
@@ -71,10 +107,10 @@ class Cart {
 }
 
 class CartItem {
-  CartItem(this.cartItem, this.qty);
+  CartItem(this.productInh, this.qty);
 
-  final ProductInh cartItem;
+  final ProductInh productInh;
   final double qty;
 
-  double get total => cartItem.price * qty;
+  double get total => productInh.price * qty;
 }
