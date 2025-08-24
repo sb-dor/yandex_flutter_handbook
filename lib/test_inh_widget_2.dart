@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yandex_flutter_handbook/shimmer.dart';
 
 class TestInhWidget2 extends InheritedWidget {
   const TestInhWidget2({super.key, required super.child, required this.listOfIntegers});
@@ -55,6 +56,12 @@ class _TestInhWidget2ConfigState extends State<TestInhWidget2Config> {
           children: [
             TextButton(onPressed: addInt, child: Icon(Icons.add)),
             TestInhWidget2(listOfIntegers: integers, child: const _TestInhWidget2Text()),
+            Shimmer(
+              size: Size(300, 500),
+              color: Colors.indigo,
+              backgroundColor: Colors.blue,
+              speed: 15 / 3000000,
+            ),
           ],
         ),
       ),
