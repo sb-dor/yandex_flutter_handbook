@@ -34,10 +34,12 @@ class StreamProvider {
   Stream<int> get stream => _streamController.stream;
 
   void addToController(int number) {
-    _streamController.add(number);
+    if (!_streamController.isClosed) _streamController.sink.add(number);
   }
 
   void close() => _streamController.close();
+
+  void error() => _streamController.addError(Exception());
 }
 
 class AsyncStreamLearningMaterialApp extends StatelessWidget {
@@ -65,11 +67,27 @@ class _AsyncStreamLearningWidgetState extends State<AsyncStreamLearningWidget> {
   void initState() {
     super.initState();
 
-
     _streamLearning.addToController(11);
     _streamLearning.addToController(15);
-    Future.delayed(const Duration(seconds: 3), () {
-      _streamLearningSubs = _streamLearning.stream.listen(_streamListener);
+    Future.delayed(const Duration(seconds: 3), () async {
+      // you can either do like this
+      _streamLearningSubs = _streamLearning.stream.listen(
+        _streamListener,
+        onError: (error) {
+          print("sub is error");
+        },
+        // will be called whenever streamController is closed
+        onDone: () {
+          print("sub is done");
+        },
+        cancelOnError: true,
+      );
+
+      // or like this
+      // but remember that this kind of job never handles errors
+      // await for (final each in _streamLearning.stream) {
+      //   _streamListener(each);
+      // }
     });
   }
 
@@ -116,6 +134,18 @@ class _AsyncStreamLearningWidgetState extends State<AsyncStreamLearningWidget> {
                 _resume();
               },
               child: Text("Resume stream"),
+            ),
+            TextButton(
+              onPressed: () {
+                _streamLearning.close();
+              },
+              child: Text("Close stream"),
+            ),
+            TextButton(
+              onPressed: () {
+                _streamLearning.error();
+              },
+              child: Text("Error stream"),
             ),
           ],
         ),
