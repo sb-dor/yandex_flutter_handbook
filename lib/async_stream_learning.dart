@@ -8,7 +8,28 @@ void main() {
 }
 
 class StreamProvider {
-  final StreamController<int> _streamController = StreamController.broadcast();
+  // simple StreamController constructor creates Simple-subscription-stream
+  // which means subscriber will get all data from stream even if he was not subscribed
+  // So for .broadcast it doesn't work
+  final StreamController<int> _streamController = StreamController(
+    // works when everyone unsubscribes from stream
+    onCancel: () {
+      print("on cancel");
+    },
+    // works whenever someone subscribes to stream
+    // onListen runs only once, when the first subscription is created
+    onListen: () {
+      print("on listen");
+    },
+    // on pause (broadcast constructor does not have this method)
+    onPause: () {
+      print("onPause");
+    },
+    // on resume (broadcast constructor does not have this method)
+    onResume: () {
+      print("onResume");
+    },
+  );
 
   Stream<int> get stream => _streamController.stream;
 
@@ -43,7 +64,13 @@ class _AsyncStreamLearningWidgetState extends State<AsyncStreamLearningWidget> {
   @override
   void initState() {
     super.initState();
-    _streamLearningSubs = _streamLearning.stream.listen(_streamListener);
+
+
+    _streamLearning.addToController(11);
+    _streamLearning.addToController(15);
+    Future.delayed(const Duration(seconds: 3), () {
+      _streamLearningSubs = _streamLearning.stream.listen(_streamListener);
+    });
   }
 
   void _streamListener(int number) {
@@ -51,6 +78,10 @@ class _AsyncStreamLearningWidgetState extends State<AsyncStreamLearningWidget> {
       _streamIntegers.add(number);
     });
   }
+
+  void _pause() => _streamLearningSubs.pause();
+
+  void _resume() => _streamLearningSubs.resume();
 
   @override
   void dispose() {
@@ -63,12 +94,30 @@ class _AsyncStreamLearningWidgetState extends State<AsyncStreamLearningWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Steams with controller")),
-      body: Center(
-        child: TextButton(
-          onPressed: () {
-            _streamLearning.addToController(Random().nextInt(100));
-          },
-          child: Text("$_streamIntegers"),
+      body: SizedBox.expand(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextButton(
+              onPressed: () {
+                _streamLearning.addToController(Random().nextInt(100));
+              },
+              child: Text("$_streamIntegers"),
+            ),
+            TextButton(
+              onPressed: () {
+                _pause();
+              },
+              child: Text("Pause stream"),
+            ),
+            TextButton(
+              onPressed: () {
+                _resume();
+              },
+              child: Text("Resume stream"),
+            ),
+          ],
         ),
       ),
     );
