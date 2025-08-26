@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 
 void main() {
   final assortment = Assortment(1, [Product(1, 10), Product(2, 12)]);
@@ -86,7 +87,13 @@ mixin TotalCartMixin on Cart {
 
 mixin AddToCart on Cart {
   void addToCart(CartItem cartItem) {
-    cartItems.add(cartItem);
+    final index = cartItems.indexWhere((el) => el.productInh.id == cartItem.productInh.id);
+    if (index != -1) {
+      final item = cartItems[index].copyWith(qty: () => cartItems[index].qty + 1);
+      cartItems[index] = item;
+    } else {
+      cartItems.add(cartItem);
+    }
   }
 
   void removeFromCart(ProductInh productType) {
@@ -118,4 +125,7 @@ class CartItem {
   final double qty;
 
   double get total => productInh.price * qty;
+
+  CartItem copyWith({ValueGetter<ProductInh>? productInh, ValueGetter<double>? qty}) =>
+      CartItem(productInh != null ? productInh() : this.productInh, qty != null ? qty() : this.qty);
 }
