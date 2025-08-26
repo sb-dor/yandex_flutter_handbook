@@ -1,7 +1,8 @@
 import 'dart:async';
 
-import '../remember_oop_3.dart';
+import 'package:rxdart/rxdart.dart';
 
+import '../remember_oop_3.dart';
 
 final List<ProductInh> items = [
   Product(1, 10.5),
@@ -16,7 +17,9 @@ class CartStreamController {
     cart = CartWithDiscount(cartItems: <CartItem>[]);
   }
 
-  final StreamController<Cart> _cartStreamController = StreamController.broadcast();
+  // final StreamController<Cart> _cartStreamController = StreamController.broadcast();
+
+  final BehaviorSubject<Cart> _cartStreamController = BehaviorSubject();
 
   Stream<Cart> get cartItemStream => _cartStreamController.stream;
 

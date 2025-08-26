@@ -1,3 +1,5 @@
+import 'package:collection/collection.dart';
+
 void main() {
   final assortment = Assortment(1, [Product(1, 10), Product(2, 12)]);
   final product = Product(3, 25);
@@ -94,6 +96,9 @@ mixin AddToCart on Cart {
 
 mixin QtyOfProducts on Cart {
   int get qtyOfAllSelectedProducts => cartItems.fold(0, (sum, item) => sum += item.qty.toInt());
+
+  int qtyOfProduct(int id) =>
+      cartItems.firstWhereOrNull((el) => el.productInh.id == id)?.qty.toInt() ?? 0;
 }
 
 class CartWithDiscount = Cart with Prices, TotalCartMixin, AddToCart, QtyOfProducts;
@@ -104,7 +109,6 @@ class Cart {
   final List<CartItem> cartItems;
 
   double get total => cartItems.fold(0.0, (sum, item) => sum += item.total);
-
 }
 
 class CartItem {
