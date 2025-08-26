@@ -19,7 +19,14 @@ class CartStreamController {
 
   // final StreamController<Cart> _cartStreamController = StreamController.broadcast();
 
-  final BehaviorSubject<Cart> _cartStreamController = BehaviorSubject();
+  final BehaviorSubject<Cart> _cartStreamController = BehaviorSubject(
+    onListen: () {
+      print("on listen behavior subject");
+    },
+    onCancel: () {
+      print("on cancel behavior subject");
+    },
+  );
 
   Stream<Cart> get cartItemStream => _cartStreamController.stream;
 

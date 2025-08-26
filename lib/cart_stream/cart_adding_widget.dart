@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:yandex_flutter_handbook/cart_stream/cart_stream_controller.dart';
 import 'package:yandex_flutter_handbook/cart_stream/cart_stream_widget.dart';
 
@@ -61,11 +64,27 @@ class _CartAddingWidgetUI extends StatefulWidget {
 
 class _CartAddingWidgetUIState extends State<_CartAddingWidgetUI> {
   late final CartStreamController _cartStreamController;
+  late final StreamSubscription<Cart> _cartStreamSubs;
 
   @override
   void initState() {
     super.initState();
     _cartStreamController = CartAddingInhWidget.of(context).cartStreamController;
+    _cartStreamSubs = _cartStreamController.cartItemStream
+        .listen(
+          (data) {
+            print("subs coming data: $data");
+            if (data.cartItems.length == 4) {
+              _cartStreamSubs.cancel();
+            }
+          },
+          onDone: () {
+            print("on Stream done");
+          },
+          onError: (error) {
+            print("on Stream error");
+          },
+        );
   }
 
   @override
