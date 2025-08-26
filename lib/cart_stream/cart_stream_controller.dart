@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:yandex_flutter_handbook/remember_oop_3.dart';
+import '../remember_oop_3.dart';
+
 
 final List<ProductInh> items = [
   Product(1, 10.5),
@@ -17,12 +18,12 @@ class CartStreamController {
 
   final StreamController<Cart> _cartStreamController = StreamController.broadcast();
 
-  Stream get cartItemStream => _cartStreamController.stream;
+  Stream<Cart> get cartItemStream => _cartStreamController.stream;
 
   late CartWithDiscount cart;
 
-  void add(CartItem cartItem) {
-    cart.addToCart(cartItem);
+  void add(ProductInh product) {
+    cart.addToCart(CartItem(product, 1));
     _cartStreamController.sink.add(cart);
   }
 }

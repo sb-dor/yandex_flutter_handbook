@@ -34,13 +34,13 @@ class Product extends ProductInh {
 }
 
 class Assortment extends ProductInh {
-  Assortment(this._id, this._products);
+  Assortment(this._id, this.products);
 
   final int _id;
-  final List<Product> _products;
+  final List<Product> products;
 
   @override
-  double get price => _products.fold(0.0, (sum, prod) => sum += prod.price);
+  double get price => products.fold(0.0, (sum, prod) => sum += prod.price);
 
   @override
   int get id => _id;

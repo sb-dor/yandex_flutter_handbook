@@ -20,12 +20,12 @@ class Product extends ProductInh {
 }
 
 class Assortment extends ProductInh {
-  Assortment(this._products);
+  Assortment(this.products);
 
-  final List<Product> _products;
+  final List<Product> products;
 
   @override
-  double get price => _products.fold(0.0, (sum, prod) => sum += prod.price);
+  double get price => products.fold(0.0, (sum, prod) => sum += prod.price);
 }
 
 class Cart {
