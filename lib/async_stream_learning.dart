@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widget_previews.dart';
 
 void main() {
   runApp(MaterialApp(home: AsyncStreamLearningMaterialApp()));
@@ -71,17 +72,25 @@ class _AsyncStreamLearningWidgetState extends State<AsyncStreamLearningWidget> {
     _streamLearning.addToController(15);
     Future.delayed(const Duration(seconds: 3), () async {
       // you can either do like this
-      _streamLearningSubs = _streamLearning.stream.listen(
-        _streamListener,
-        onError: (error) {
-          print("sub is error");
-        },
-        // will be called whenever streamController is closed
-        onDone: () {
-          print("sub is done");
-        },
-        cancelOnError: true,
-      );
+      _streamLearningSubs = _streamLearning.stream
+          // if stream has an error, and you catch them in handleError
+          // you cant handle errors indie listen's onError
+          .handleError((error) {
+            print("stream is error: $error");
+          })
+          .listen(
+            // onData
+            _streamListener,
+            // onError
+            onError: (error) {
+              print("sub is error: $error");
+            },
+            // will be called whenever streamController is closed
+            onDone: () {
+              print("sub is done");
+            },
+            cancelOnError: true,
+          );
 
       // or like this
       // but remember that this kind of job never handles errors
