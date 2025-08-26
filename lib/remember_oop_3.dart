@@ -9,7 +9,7 @@ void main() {
   print(cartWithDiscount.totalWithDiscount(10));
   // cartWithDiscount.printEachItemPrice();
   // cartWithDiscount.printEachItemType();
-  cartWithDiscount.addToCart(Product(4, 66));
+  cartWithDiscount.addToCart(CartItem(Product(4, 66), 1));
   print(cartWithDiscount.total);
   print(cartWithDiscount.totalWithDiscount(10));
 }
@@ -83,8 +83,8 @@ mixin TotalCartMixin on Cart {
 }
 
 mixin AddToCart on Cart {
-  void addToCart(ProductInh productType) {
-    cartItems.add(CartItem(productType, 1));
+  void addToCart(CartItem cartItem) {
+    cartItems.add(cartItem);
   }
 
   void removeFromCart(ProductInh productType) {
@@ -104,6 +104,7 @@ class Cart {
   final List<CartItem> cartItems;
 
   double get total => cartItems.fold(0.0, (sum, item) => sum += item.total);
+
 }
 
 class CartItem {
