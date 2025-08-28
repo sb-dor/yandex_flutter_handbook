@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 void main() => runApp(MaterialApp(home: TestWidgetKeys6()));
@@ -14,9 +16,12 @@ class _TestWidgetKeys6State extends State<TestWidgetKeys6> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Column(
+      body: ListView(
         children: [
           _TestWidgetKey(key: ValueKey("local")),
+          SizedBox(height: 10),
+          _TestStateless(),
+          SizedBox(height: 10),
           TextButton(
             onPressed: () {
               setState(() {});
@@ -59,8 +64,26 @@ class _TestWidgetKeyState extends State<_TestWidgetKey> {
     super.dispose();
   }
 
+  int _num = 0;
+
   @override
   Widget build(BuildContext context) {
-    return Container(width: 100, height: 100, color: Colors.red);
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _num++;
+        });
+      },
+      child: Container(width: 100, height: 100, color: Colors.red, child: Text("$_num")),
+    );
+  }
+}
+
+class _TestStateless extends StatelessWidget {
+  const _TestStateless({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(width: 100, height: 100, child: Text("${Random().nextInt(100)}"));
   }
 }
