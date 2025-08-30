@@ -62,7 +62,8 @@ class Test4 extends StatelessWidget {
         SizedBox(height: 10),
         Container(
           color: Colors.yellow,
-          child: Row(
+          height: 40,
+          child: Column(
             children: [
               Container(width: 20, height: 20, color: Colors.green),
               Container(height: 30, width: 30, color: Colors.orange),
@@ -81,13 +82,22 @@ class Test5 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Container(width: 100, height: 100, color: Colors.red),
+        ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: 10),
+          child: ColoredBox(color: Colors.blue, child: Text("111")),
+        ),
         SizedBox(width: 10),
-        Container(
-          color: Colors.yellow,
+        ConstrainedBox(
+          constraints: BoxConstraints.expand(height: 200),
           child: Column(
             children: [
               Container(width: 20, height: 20, color: Colors.green),
+              Container(height: 30, width: 30, color: Colors.orange),
+              Container(height: 30, width: 30, color: Colors.orange),
+              Container(height: 30, width: 30, color: Colors.orange),
+              Container(height: 30, width: 30, color: Colors.orange),
+              Container(height: 30, width: 30, color: Colors.orange),
+              Container(height: 30, width: 30, color: Colors.orange),
               Container(height: 30, width: 30, color: Colors.orange),
             ],
           ),
