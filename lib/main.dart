@@ -10,5 +10,5 @@ import 'test_widget_keys_4.dart';
 import 'test_widget_keys_5.dart';
 
 void main() {
-  runApp(MaterialApp(home: TestInhWidget2Config()));
+  runApp(MaterialApp(home: TestWidgetKeys2()));
 }

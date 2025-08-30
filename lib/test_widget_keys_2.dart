@@ -34,6 +34,14 @@ class _TestWidgetKeys2State extends State<TestWidgetKeys2> {
           setState(() {
             final copyList = List.of(_widgets);
             copyList.shuffle();
+            copyList.removeLast();
+            final id = Random().nextInt(100);
+            copyList.add(
+              _TestingWidgetWithKeyAndState(
+                key: ValueKey("key_$id"),
+                uniqueNumber: (id + 1) * Random().nextInt(100),
+              ),
+            );
             _widgets = copyList;
           });
         },
@@ -59,6 +67,34 @@ class _TestingWidgetWithKeyAndStateState extends State<_TestingWidgetWithKeyAndS
     setState(() {
       _counter++;
     });
+  }
+
+  // if there is same widget or same key with widget
+  // this will be called
+  @override
+  void didUpdateWidget(covariant _TestingWidgetWithKeyAndState oldWidget) {
+    print("did update widget: $oldWidget");
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void didChangeDependencies() {
+    print("did change dependencies");
+    super.didChangeDependencies();
+  }
+
+  // if element creates or recreates this will be called
+  @override
+  void initState() {
+    super.initState();
+    print("initState: $widget");
+  }
+
+  // if element unmounts this will be called
+  @override
+  void dispose() {
+    print("disposing: $widget");
+    super.dispose();
   }
 
   @override
