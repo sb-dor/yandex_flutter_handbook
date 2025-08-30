@@ -12,19 +12,23 @@ class TestWidgetKeys6 extends StatefulWidget {
 }
 
 class _TestWidgetKeys6State extends State<TestWidgetKeys6> {
+  bool _changePlaces = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
       body: ListView(
         children: [
-          _TestWidgetKey(key: ValueKey("local")),
+          if (_changePlaces) _TestWidgetKey() else _TestWidgetKey(),
           SizedBox(height: 10),
           _TestStateless(),
           SizedBox(height: 10),
           TextButton(
             onPressed: () {
-              setState(() {});
+              setState(() {
+                _changePlaces = !_changePlaces;
+              });
             },
             child: Text("Refresh"),
           ),
@@ -35,7 +39,7 @@ class _TestWidgetKeys6State extends State<TestWidgetKeys6> {
 }
 
 class _TestWidgetKey extends StatefulWidget {
-  const _TestWidgetKey({super.key});
+  const _TestWidgetKey();
 
   @override
   State<_TestWidgetKey> createState() => _TestWidgetKeyState();
@@ -48,6 +52,12 @@ class _TestWidgetKeyState extends State<_TestWidgetKey> {
   void didUpdateWidget(covariant _TestWidgetKey oldWidget) {
     print("did update widget: $oldWidget");
     super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void didChangeDependencies() {
+    print("did change dependencies");
+    super.didChangeDependencies();
   }
 
   // if element creates or recreates this will be called
@@ -80,7 +90,7 @@ class _TestWidgetKeyState extends State<_TestWidgetKey> {
 }
 
 class _TestStateless extends StatelessWidget {
-  const _TestStateless({super.key});
+  const _TestStateless();
 
   @override
   Widget build(BuildContext context) {
