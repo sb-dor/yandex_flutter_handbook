@@ -88,7 +88,7 @@ class Test5 extends StatelessWidget {
         ),
         SizedBox(width: 10),
         ConstrainedBox(
-          constraints: BoxConstraints.expand(height: 200),
+          constraints: BoxConstraints(maxHeight: 200),
           child: Column(
             children: [
               Container(width: 20, height: 20, color: Colors.green),
@@ -98,10 +98,10 @@ class Test5 extends StatelessWidget {
               Container(height: 30, width: 30, color: Colors.orange),
               Container(height: 30, width: 30, color: Colors.orange),
               Container(height: 30, width: 30, color: Colors.orange),
-              Container(height: 30, width: 30, color: Colors.orange),
             ],
           ),
         ),
+        SizedBox()
       ],
     );
   }
