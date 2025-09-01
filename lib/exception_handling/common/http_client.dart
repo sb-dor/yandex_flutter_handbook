@@ -6,6 +6,8 @@ abstract class BaseHttpClient {
   Future<String> get();
 
   Future<String> post();
+
+  Future<String> patch();
 }
 
 class HttpClient extends BaseHttpClient {
@@ -24,5 +26,11 @@ class HttpClient extends BaseHttpClient {
       message: "User is not authenticated",
       statusCode: HttpStatus.internalServerError,
     );
+  }
+
+  @override
+  Future<String> patch() {
+    // test
+    throw ClientException(message: "Client didnt save some things locally before request");
   }
 }
