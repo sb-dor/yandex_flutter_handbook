@@ -8,6 +8,8 @@ abstract class BaseHttpClient {
   Future<String> post();
 
   Future<String> patch();
+
+  Future<String> successPost();
 }
 
 class HttpClient extends BaseHttpClient {
@@ -31,6 +33,12 @@ class HttpClient extends BaseHttpClient {
   @override
   Future<String> patch() {
     // test
-    throw ClientException(message: "Client didnt save some things locally before request");
+    throw ClientException(
+      message: "Client didn't save some things locally before request",
+      statusCode: HttpStatus.badRequest,
+    );
   }
+
+  @override
+  Future<String> successPost() => Future.value("Done!");
 }

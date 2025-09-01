@@ -27,8 +27,8 @@ final class ServerErrorException extends RestClientException {
 }
 
 final class ClientException extends RestClientException {
-  ClientException({String? message})
-    : super(message ?? "Something wrong happened in client side", statusCode: 400);
+  ClientException({String? message, int? statusCode})
+    : super(message ?? "Something wrong happened in client side", statusCode: statusCode ?? 400);
 
   @override
   String toString() {
