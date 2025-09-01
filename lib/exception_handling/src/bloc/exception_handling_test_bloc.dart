@@ -63,7 +63,7 @@ class ExceptionHandlingTestBloc
 
       final test = await _iExceptionHandlingRepository.test();
 
-      emit(ExceptionHandlingTestState.loaded("test"));
+      emit(ExceptionHandlingTestState.loaded(test));
     } on UnAuthenticatedException {
       emit(ExceptionHandlingTestState.initial());
     } catch (error, stackTrace) {
