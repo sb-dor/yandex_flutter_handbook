@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yandex_flutter_handbook/exception_handling/common/exceptions/rest_client_exception.dart';
 import 'package:yandex_flutter_handbook/exception_handling/src/data/exception_handling_repository.dart';
 
 sealed class ExceptionHandlingTestEvent {
@@ -63,6 +64,8 @@ class ExceptionHandlingTestBloc
       final test = await _iExceptionHandlingRepository.test();
 
       emit(ExceptionHandlingTestState.loaded("test"));
+    } on UnAuthenticatedException {
+      emit(ExceptionHandlingTestState.initial());
     } catch (error, stackTrace) {
       emit(ExceptionHandlingTestState.error());
       addError(error, stackTrace);
