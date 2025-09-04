@@ -11,10 +11,10 @@ void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   testWidgets("counter increments when button is tapped", (tester) async {
-    final shot = screenshot(tester);
+    final shot = screenshot(tester, binding);
     io.Directory('integration_test/screenshots').createSync(recursive: true);
 
-    await tester.pumpWidget(RepaintBoundary(child: const CounterWidget()));
+    await tester.pumpWidget(const CounterWidget());
 
     // Verify initial state
     expect(find.text('0'), findsOneWidget);

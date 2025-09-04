@@ -10,6 +10,20 @@ class CounterWidget extends StatefulWidget {
 }
 
 class _CounterWidgetState extends State<CounterWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: _App());
+  }
+}
+
+class _App extends StatefulWidget {
+  const _App();
+
+  @override
+  State<_App> createState() => _AppState();
+}
+
+class _AppState extends State<_App> {
   int _counter = 0;
 
   void _increment() {
@@ -20,27 +34,21 @@ class _CounterWidgetState extends State<CounterWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(title: const Text("Counter Test")),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text("You have pushed the button this many times:"),
-              Text(
-                '$_counter',
-                key: const Key('counterText'),
-                style: const TextStyle(fontSize: 32),
-              ),
-            ],
-          ),
+    return Scaffold(
+      appBar: AppBar(title: const Text("Counter Test")),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text("You have pushed the button this many times:"),
+            Text('$_counter', key: const Key('counterText'), style: const TextStyle(fontSize: 32)),
+          ],
         ),
-        floatingActionButton: FloatingActionButton(
-          key: ValueKey('incrementButton'),
-          onPressed: _increment,
-          child: const Icon(Icons.add),
-        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        key: ValueKey('incrementButton'),
+        onPressed: _increment,
+        child: const Icon(Icons.add),
       ),
     );
   }
