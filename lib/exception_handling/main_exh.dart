@@ -8,9 +8,14 @@ import 'package:yandex_flutter_handbook/exception_handling/common/http_client.da
 import 'package:yandex_flutter_handbook/exception_handling/src/data/exception_handling_datasource.dart';
 import 'package:yandex_flutter_handbook/exception_handling/src/data/exception_handling_repository.dart';
 import 'package:yandex_flutter_handbook/exception_handling/src/widget/exception_handling_widget.dart';
+import 'package:yandex_flutter_handbook/simple_service_locator.dart';
+
+// hell no
+ServiceLocator getIt = ServiceLocator();
 
 void main() async {
   final logger = Logger();
+  getIt.register(logger);
   await runZonedGuarded(
     () async {
       //

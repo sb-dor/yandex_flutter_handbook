@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logger/logger.dart';
 import 'package:yandex_flutter_handbook/exception_handling/main_exh.dart';
 import 'package:yandex_flutter_handbook/exception_handling/src/bloc/exception_handling_test_bloc.dart';
 
@@ -34,8 +35,22 @@ class _ExceptionHandlingWidgetState extends State<ExceptionHandlingWidget> {
   }
 }
 
-class _ExceptionHandlerWidget extends StatelessWidget {
+class _ExceptionHandlerWidget extends StatefulWidget {
   const _ExceptionHandlerWidget();
+
+  @override
+  State<_ExceptionHandlerWidget> createState() => _ExceptionHandlerWidgetState();
+}
+
+class _ExceptionHandlerWidgetState extends State<_ExceptionHandlerWidget> {
+  late final Logger _logger;
+
+  @override
+  void initState() {
+    super.initState();
+    _logger = getIt.get<Logger>();
+    _logger.log(Level.debug, "getting logger from getIt (hell no)");
+  }
 
   @override
   Widget build(BuildContext context) {
