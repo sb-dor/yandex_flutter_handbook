@@ -25,7 +25,7 @@ class HttpClient extends BaseHttpClient {
   @override
   Future<String> post() {
     throw ServerErrorException(
-      message: "User is not authenticated",
+      message: "Internal server error",
       statusCode: HttpStatus.internalServerError,
     );
   }

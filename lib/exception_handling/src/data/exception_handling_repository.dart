@@ -3,6 +3,8 @@ import 'package:yandex_flutter_handbook/exception_handling/src/data/exception_ha
 abstract interface class IExceptionHandlingRepository {
   //
   Future<String> test();
+
+  //
 }
 
 final class ExceptionHandlingRepositoryImpl implements IExceptionHandlingRepository {

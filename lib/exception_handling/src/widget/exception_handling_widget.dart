@@ -52,6 +52,7 @@ class _ExceptionHandlerWidgetState extends State<_ExceptionHandlerWidget> {
     super.initState();
     _logger = getIt.get<Logger>();
     _exceptionHandlingController = ExceptionHandlingController(
+      exceptionHandlingRepository: exceptionHandlingRepository(),
       textForParsing: "10t",
       logger: _logger,
     );
@@ -78,7 +79,16 @@ class _ExceptionHandlerWidgetState extends State<_ExceptionHandlerWidget> {
                 case ExceptionHandlingTestLoading():
                   return SliverFillRemaining(child: Center(child: CircularProgressIndicator()));
                 case ExceptionHandlingTestError():
-                  return SliverFillRemaining(child: Center(child: Text("Error stat")));
+                  return SliverFillRemaining(
+                    child: Center(
+                      child: TextButton(
+                        onPressed: () {
+                          _exceptionHandlingController.handleException();
+                        },
+                        child: Text("Error stat"),
+                      ),
+                    ),
+                  );
                 case ExceptionHandlingTestLoaded():
                   return SliverFillRemaining(
                     child: Center(
