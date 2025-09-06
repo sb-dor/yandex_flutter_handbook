@@ -17,6 +17,7 @@ class ExceptionHandlingController {
   final String _textForParsing;
   final Logger _logger;
 
+  // it will throw an error to the Flutter.error cause it's the widgets related error
   void pars() {
     try {
       final parseValue = int.parse(_textForParsing);
@@ -25,6 +26,11 @@ class ExceptionHandlingController {
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(error, stackTrace);
     }
+  }
+
+  // it will throw an error to the zone cause it's the repository
+  void partFromRepo() async {
+    await _exceptionHandlingRepository.parsedNum();
   }
 
   // it will throw an error to the zone cause it's the repository

@@ -5,6 +5,7 @@ abstract interface class IExceptionHandlingRepository {
   Future<String> test();
 
   //
+  Future<String> parsedNum();
 }
 
 final class ExceptionHandlingRepositoryImpl implements IExceptionHandlingRepository {
@@ -16,4 +17,7 @@ final class ExceptionHandlingRepositoryImpl implements IExceptionHandlingReposit
 
   @override
   Future<String> test() => _iExceptionHandlingDatasource.test();
+
+  @override
+  Future<String> parsedNum() => _iExceptionHandlingDatasource.parsedNum();
 }

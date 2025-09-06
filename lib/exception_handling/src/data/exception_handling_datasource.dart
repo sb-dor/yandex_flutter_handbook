@@ -6,6 +6,9 @@ import 'package:yandex_flutter_handbook/exception_handling/common/http_client.da
 abstract interface class IExceptionHandlingDatasource {
   //
   Future<String> test();
+
+  //
+  Future<String> parsedNum();
 }
 
 final class ExceptionHandlingDatasourceImpl implements IExceptionHandlingDatasource {
@@ -14,15 +17,23 @@ final class ExceptionHandlingDatasourceImpl implements IExceptionHandlingDatasou
 
   final BaseHttpClient _baseHttpClient;
 
+  // it will throw an error to the zone cause it's the repository
   @override
   Future<String> test() async {
     try {
-      return _baseHttpClient.post();
+      return _baseHttpClient.successPost();
     } on ServerErrorException catch (error, stackTrace) {
       if (error.statusCode == HttpStatus.unauthorized) {
         Error.throwWithStackTrace(UnAuthenticatedException(message: error.message), stackTrace);
       }
       rethrow;
     }
+  }
+
+  // it will throw an error to the zone cause it's the repository
+  @override
+  Future<String> parsedNum() async {
+    final parseValue = int.parse("10t");
+    return parseValue.toString();
   }
 }

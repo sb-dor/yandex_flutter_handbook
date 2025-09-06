@@ -97,7 +97,7 @@ class _ExceptionHandlerWidgetState extends State<_ExceptionHandlerWidget> {
                           // context.read<ExceptionHandlingTestBloc>().add(
                           //   ExceptionHandlingTestEvent.simpleFuncException(),
                           // );
-                          _exceptionHandlingController.pars();
+                          _exceptionHandlingController.partFromRepo();
                         },
                         child: Text(state.data),
                       ),
