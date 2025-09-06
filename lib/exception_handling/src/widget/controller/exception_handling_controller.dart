@@ -39,7 +39,6 @@ class ExceptionHandlingController {
     _reusableGlobalFunctions.numParse();
   }
 
-  // it will throw an error to the zone cause it's the
   void partFromSingleTonFuture() async {
     await Future.delayed(const Duration(seconds: 1));
     _reusableGlobalFunctions.numParse();
