@@ -62,7 +62,13 @@ class _ExceptionHandlerWidgetState extends State<_ExceptionHandlerWidget> {
             builder: (context, state) {
               switch (state) {
                 case ExceptionHandlingTestInitial():
-                  return SliverFillRemaining(child: Center(child: Text("Initial state")));
+                  return SliverFillRemaining(
+                    child: Center(
+                      child: Text(
+                        "Initial state: ${state.data != null ? "with message: ${state.data}" : ""}",
+                      ),
+                    ),
+                  );
                 case ExceptionHandlingTestLoading():
                   return SliverFillRemaining(child: Center(child: CircularProgressIndicator()));
                 case ExceptionHandlingTestError():

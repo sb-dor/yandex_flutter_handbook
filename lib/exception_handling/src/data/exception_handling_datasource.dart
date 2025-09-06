@@ -17,7 +17,7 @@ final class ExceptionHandlingDatasourceImpl implements IExceptionHandlingDatasou
   @override
   Future<String> test() async {
     try {
-      return _baseHttpClient.successPost();
+      return _baseHttpClient.post();
     } on ServerErrorException catch (error, stackTrace) {
       if (error.statusCode == HttpStatus.unauthorized) {
         Error.throwWithStackTrace(UnAuthenticatedException(message: error.message), stackTrace);

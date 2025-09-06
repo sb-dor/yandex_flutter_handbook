@@ -15,7 +15,9 @@ final class _RequestDataEvent extends ExceptionHandlingTestEvent {
 sealed class ExceptionHandlingTestState {
   const ExceptionHandlingTestState();
 
-  const factory ExceptionHandlingTestState.initial() = ExceptionHandlingTestInitial;
+  // data is just for test
+  const factory ExceptionHandlingTestState.initial({final String? data}) =
+      ExceptionHandlingTestInitial;
 
   const factory ExceptionHandlingTestState.loading() = ExceptionHandlingTestLoading;
 
@@ -25,7 +27,9 @@ sealed class ExceptionHandlingTestState {
 }
 
 final class ExceptionHandlingTestInitial extends ExceptionHandlingTestState {
-  const ExceptionHandlingTestInitial();
+  const ExceptionHandlingTestInitial({this.data});
+
+  final String? data;
 }
 
 final class ExceptionHandlingTestLoading extends ExceptionHandlingTestState {
@@ -65,7 +69,7 @@ class ExceptionHandlingTestBloc
 
       emit(ExceptionHandlingTestState.loaded(test));
     } on UnAuthenticatedException {
-      emit(ExceptionHandlingTestState.initial());
+      emit(ExceptionHandlingTestState.initial(data: "User is not authenticated"));
     } catch (error, stackTrace) {
       emit(ExceptionHandlingTestState.error());
       addError(error, stackTrace);
