@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
+import 'package:yandex_flutter_handbook/exception_handling/common/reusable_global_functions.dart';
 import 'package:yandex_flutter_handbook/exception_handling/main_exh.dart';
 import 'package:yandex_flutter_handbook/exception_handling/src/bloc/exception_handling_test_bloc.dart';
 import 'package:yandex_flutter_handbook/exception_handling/src/widget/controller/exception_handling_controller.dart';
@@ -52,6 +53,7 @@ class _ExceptionHandlerWidgetState extends State<_ExceptionHandlerWidget> {
     super.initState();
     _logger = getIt.get<Logger>();
     _exceptionHandlingController = ExceptionHandlingController(
+      reusableGlobalFunctions: ReusableGlobalFunctions(),
       exceptionHandlingRepository: exceptionHandlingRepository(),
       textForParsing: "10t",
       logger: _logger,
@@ -96,16 +98,38 @@ class _ExceptionHandlerWidgetState extends State<_ExceptionHandlerWidget> {
                   );
                 case ExceptionHandlingTestLoaded():
                   return SliverFillRemaining(
-                    child: Center(
-                      child: TextButton(
-                        onPressed: () {
-                          // context.read<ExceptionHandlingTestBloc>().add(
-                          //   ExceptionHandlingTestEvent.simpleFuncException(),
-                          // );
-                          // _exceptionHandlingController.partFromRepo();
-                          _exceptionInWidget();
-                        },
-                        child: Text(state.data),
+                    child: SizedBox.expand(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              _exceptionInWidget();
+                            },
+                            child: Text(state.data),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              context.read<ExceptionHandlingTestBloc>().add(
+                                ExceptionHandlingTestEvent.simpleFuncException(),
+                              );
+                            },
+                            child: Text(state.data),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              _exceptionHandlingController.partFromRepo();
+                            },
+                            child: Text(state.data),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              _exceptionHandlingController.partFromSingleTon();
+                            },
+                            child: Text(state.data),
+                          ),
+                        ],
                       ),
                     ),
                   );

@@ -26,6 +26,7 @@ void main() async {
 
       PlatformDispatcher.instance.onError = (error, stackTrace) {
         logger.e("Platform error:", error: error, stackTrace: stackTrace);
+        return true;
       };
       //
       Bloc.observer = BlocObserverManager(logger: logger);
