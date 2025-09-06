@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:yandex_flutter_handbook/exception_handling/main_exh.dart';
 import 'package:yandex_flutter_handbook/exception_handling/src/bloc/exception_handling_test_bloc.dart';
+import 'package:yandex_flutter_handbook/exception_handling/src/widget/controller/exception_handling_controller.dart';
 
 class ExceptionHandlingWidget extends StatefulWidget {
   const ExceptionHandlingWidget({super.key});
@@ -44,11 +45,16 @@ class _ExceptionHandlerWidget extends StatefulWidget {
 
 class _ExceptionHandlerWidgetState extends State<_ExceptionHandlerWidget> {
   late final Logger _logger;
+  late final ExceptionHandlingController _exceptionHandlingController;
 
   @override
   void initState() {
     super.initState();
     _logger = getIt.get<Logger>();
+    _exceptionHandlingController = ExceptionHandlingController(
+      textForParsing: "10t",
+      logger: _logger,
+    );
     _logger.log(Level.debug, "getting logger from getIt (hell no)");
   }
 
@@ -78,9 +84,10 @@ class _ExceptionHandlerWidgetState extends State<_ExceptionHandlerWidget> {
                     child: Center(
                       child: TextButton(
                         onPressed: () {
-                          context.read<ExceptionHandlingTestBloc>().add(
-                            ExceptionHandlingTestEvent.simpleFuncException(),
-                          );
+                          // context.read<ExceptionHandlingTestBloc>().add(
+                          //   ExceptionHandlingTestEvent.simpleFuncException(),
+                          // );
+                          _exceptionHandlingController.pars();
                         },
                         child: Text(state.data),
                       ),

@@ -18,6 +18,9 @@ void main() async {
   getIt.register(logger);
   await runZonedGuarded(
     () async {
+      FlutterError.onError = (error) {
+        logger.e("Flutter error:", error: error, stackTrace: error.stack);
+      };
       //
       Bloc.observer = BlocObserverManager(logger: logger);
       runApp(MaterialApp(home: ExceptionHandlingWidget()));
