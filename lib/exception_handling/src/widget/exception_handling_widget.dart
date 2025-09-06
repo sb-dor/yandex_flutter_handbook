@@ -59,6 +59,10 @@ class _ExceptionHandlerWidgetState extends State<_ExceptionHandlerWidget> {
     _logger.log(Level.debug, "getting logger from getIt (hell no)");
   }
 
+  void _exceptionInWidget() {
+    final num = int.parse("10t");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,7 +87,8 @@ class _ExceptionHandlerWidgetState extends State<_ExceptionHandlerWidget> {
                     child: Center(
                       child: TextButton(
                         onPressed: () {
-                          _exceptionHandlingController.handleException();
+                          // _exceptionHandlingController.handleException();
+                          _exceptionInWidget();
                         },
                         child: Text("Error stat"),
                       ),
@@ -97,7 +102,8 @@ class _ExceptionHandlerWidgetState extends State<_ExceptionHandlerWidget> {
                           // context.read<ExceptionHandlingTestBloc>().add(
                           //   ExceptionHandlingTestEvent.simpleFuncException(),
                           // );
-                          _exceptionHandlingController.partFromRepo();
+                          // _exceptionHandlingController.partFromRepo();
+                          _exceptionInWidget();
                         },
                         child: Text(state.data),
                       ),

@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:yandex_flutter_handbook/exception_handling/common/bloc_observer.dart';
@@ -20,6 +22,10 @@ void main() async {
     () async {
       FlutterError.onError = (error) {
         logger.e("Flutter error:", error: error, stackTrace: error.stack);
+      };
+
+      PlatformDispatcher.instance.onError = (error, stackTrace) {
+        logger.e("Platform error:", error: error, stackTrace: stackTrace);
       };
       //
       Bloc.observer = BlocObserverManager(logger: logger);
