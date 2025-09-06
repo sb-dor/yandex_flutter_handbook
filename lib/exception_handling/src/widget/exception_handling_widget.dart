@@ -125,7 +125,7 @@ class _ExceptionHandlerWidgetState extends State<_ExceptionHandlerWidget> {
                           ),
                           TextButton(
                             onPressed: () {
-                              _exceptionHandlingController.partFromSingleTon();
+                              _exceptionHandlingController.partFromSingleTonFuture();
                             },
                             child: Text(state.data),
                           ),

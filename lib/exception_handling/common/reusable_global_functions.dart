@@ -6,6 +6,7 @@ class ReusableGlobalFunctions {
   factory ReusableGlobalFunctions() => _instance;
 
   void numParse() {
-    final number = int.parse("10t");
+    final number = int.tryParse("10t");
+    number!;
   }
 }
