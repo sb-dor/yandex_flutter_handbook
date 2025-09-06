@@ -6,10 +6,16 @@ sealed class ExceptionHandlingTestEvent {
   const ExceptionHandlingTestEvent();
 
   const factory ExceptionHandlingTestEvent.requestData() = _RequestDataEvent;
+
+  const factory ExceptionHandlingTestEvent.simpleFuncException() = _SimpleFuncExceptions;
 }
 
 final class _RequestDataEvent extends ExceptionHandlingTestEvent {
   const _RequestDataEvent();
+}
+
+final class _SimpleFuncExceptions extends ExceptionHandlingTestEvent {
+  const _SimpleFuncExceptions();
 }
 
 sealed class ExceptionHandlingTestState {
@@ -55,6 +61,7 @@ class ExceptionHandlingTestBloc
     on<ExceptionHandlingTestEvent>(
       (event, emit) => switch (event) {
         final _RequestDataEvent event => _requestDataEvent(event, emit),
+        final _SimpleFuncExceptions event => _simpleFuncExceptions(event, emit),
       },
     );
   }
@@ -72,6 +79,23 @@ class ExceptionHandlingTestBloc
       emit(ExceptionHandlingTestState.initial(data: "User is not authenticated"));
     } catch (error, stackTrace) {
       emit(ExceptionHandlingTestState.error());
+      addError(error, stackTrace);
+    }
+  }
+
+  // if you do not catch the error it will propagate to bloc-observer then to nearest zone
+  void _simpleFuncExceptions(
+    _SimpleFuncExceptions event,
+    Emitter<ExceptionHandlingTestState> emit,
+  ) async {
+    try {
+      if (state is! ExceptionHandlingTestLoaded) return;
+
+      final someNumber = int.parse("name");
+
+      emit(ExceptionHandlingTestState.loaded(someNumber.toString()));
+    } catch (error, stackTrace) {
+      emit(ExceptionHandlingTestState.initial(data: error.toString()));
       addError(error, stackTrace);
     }
   }

@@ -74,7 +74,18 @@ class _ExceptionHandlerWidgetState extends State<_ExceptionHandlerWidget> {
                 case ExceptionHandlingTestError():
                   return SliverFillRemaining(child: Center(child: Text("Error stat")));
                 case ExceptionHandlingTestLoaded():
-                  return SliverFillRemaining(child: Center(child: Text(state.data)));
+                  return SliverFillRemaining(
+                    child: Center(
+                      child: TextButton(
+                        onPressed: () {
+                          context.read<ExceptionHandlingTestBloc>().add(
+                            ExceptionHandlingTestEvent.simpleFuncException(),
+                          );
+                        },
+                        child: Text(state.data),
+                      ),
+                    ),
+                  );
               }
             },
           ),
