@@ -30,17 +30,21 @@ class _TestStatelessElement extends StatelessElement {
   @override
   Widget build() => Scaffold(
     appBar: AppBar(title: Text("Test stateless element as stfEl")),
-    body: Column(
-      children: [
-        TextButton(
-          onPressed: () {
-            cnt++;
-            ownSetState(() {});
-          },
-          child: Text("Click to inc: $cnt"),
-        ),
-        _widget.build(this), // this - is element (BuildContext)
-      ],
+    body: SizedBox.expand(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextButton(
+            onPressed: () {
+              cnt++;
+              ownSetState(() {});
+            },
+            child: Text("Click to inc: $cnt"),
+          ),
+          _widget.build(this), // this - is element (BuildContext)
+        ],
+      ),
     ),
   );
 }
