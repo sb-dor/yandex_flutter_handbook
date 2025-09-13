@@ -3,6 +3,8 @@ import 'package:yandex_flutter_handbook/graphql_test/repository/graphql_datasour
 
 abstract interface class IGraphqlRepository {
   Future<List<GraphqlUserTest>> users();
+
+  Future<GraphqlUserTest> createUser(final String name, {final String? email});
 }
 
 final class GraphqlRepositoryImpl implements IGraphqlRepository {
@@ -13,5 +15,8 @@ final class GraphqlRepositoryImpl implements IGraphqlRepository {
 
   @override
   Future<List<GraphqlUserTest>> users() => _iGraphqlDatasource.users();
-}
 
+  @override
+  Future<GraphqlUserTest> createUser(String name, {String? email}) =>
+      _iGraphqlDatasource.createUser(name, email: email);
+}

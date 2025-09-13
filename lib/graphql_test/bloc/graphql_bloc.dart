@@ -10,6 +10,9 @@ part 'graphql_bloc.freezed.dart';
 @freezed
 sealed class GraphqlEvent with _$GraphqlEvent {
   const factory GraphqlEvent.getUsers() = _Graphql$GetUsersEvent;
+
+  const factory GraphqlEvent.createUser({required final String name, final String? email}) =
+      _Graphql$CreateUserEvent;
 }
 
 @freezed
@@ -31,6 +34,7 @@ class GraphqlBloc extends Bloc<GraphqlEvent, GraphqlState> {
     on<GraphqlEvent>(
       (event, emit) => switch (event) {
         final _Graphql$GetUsersEvent event => _graphql$GetUsersEvent(event, emit),
+        final _Graphql$CreateUserEvent event => _graphql$CreateUserEvent(event, emit),
       },
     );
   }
@@ -48,5 +52,9 @@ class GraphqlBloc extends Bloc<GraphqlEvent, GraphqlState> {
       addError(error, stackTrace);
       log("error: $error | trace: $stackTrace");
     }
+  }
+
+  void _graphql$CreateUserEvent(_Graphql$CreateUserEvent event, Emitter<GraphqlState> emit) async {
+    await _iGraphqlRepository.createUser(event.name, email: event.email);
   }
 }

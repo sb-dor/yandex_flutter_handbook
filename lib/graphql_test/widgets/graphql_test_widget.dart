@@ -12,6 +12,8 @@ class GraphqlTestWidget extends StatefulWidget {
 
 class _GraphqlTestWidgetState extends State<GraphqlTestWidget> {
   late final GraphqlBloc _graphqlBloc;
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
   @override
   void initState() {
@@ -23,6 +25,8 @@ class _GraphqlTestWidgetState extends State<GraphqlTestWidget> {
   @override
   void dispose() {
     _graphqlBloc.close();
+    _nameController.dispose();
+    _emailController.dispose();
     super.dispose();
   }
 
@@ -37,6 +41,38 @@ class _GraphqlTestWidgetState extends State<GraphqlTestWidget> {
             return CustomScrollView(
               slivers: [
                 SliverToBoxAdapter(child: SizedBox(height: 10)),
+                SliverToBoxAdapter(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: _nameController,
+                          decoration: InputDecoration(hintText: "Name"),
+                        ),
+                      ),
+                      SizedBox(width: 10,),
+
+                      Expanded(
+                        child: TextField(
+                          controller: _emailController,
+                          decoration: InputDecoration(hintText: "Email"),
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          _graphqlBloc.add(
+                            GraphqlEvent.createUser(
+                              name: _nameController.text,
+                              email: _emailController.text,
+                            ),
+                          );
+                        },
+                        child: Text("Create"),
+                      ),
+                    ],
+                  ),
+                ),
+
                 switch (state) {
                   Graphql$IntialState() => SliverToBoxAdapter(child: SizedBox.shrink()),
                   Graphql$InProgressState() => SliverFillRemaining(

@@ -1,11 +1,15 @@
 import 'dart:developer';
 
 import 'package:graphql/client.dart';
+import 'package:yandex_flutter_handbook/graphql_test/common/graphql/create_user.graphql.dart';
 import 'package:yandex_flutter_handbook/graphql_test/common/graphql/get_users.graphql.dart';
+import 'package:yandex_flutter_handbook/graphql_test/models/graphql_role_test.dart';
 import 'package:yandex_flutter_handbook/graphql_test/models/graphql_user_test.dart';
 
 abstract interface class IGraphqlDatasource {
   Future<List<GraphqlUserTest>> users();
+
+  Future<GraphqlUserTest> createUser(final String name, {final String? email});
 }
 
 final class GraphqlDatasourceImpl implements IGraphqlDatasource {
@@ -42,6 +46,11 @@ final class GraphqlDatasourceImpl implements IGraphqlDatasource {
 
     return data.map((e) => GraphqlUserTest.fromJson(e)).toList();
   }
+
+  @override
+  Future<GraphqlUserTest> createUser(String name, {String? email}) {
+    throw UnimplementedError("Test");
+  }
 }
 
 final class GeneratedGraphQlDatasourceImpl implements IGraphqlDatasource {
@@ -55,5 +64,16 @@ final class GeneratedGraphQlDatasourceImpl implements IGraphqlDatasource {
     final query = await _client.query$GetUsers(options);
     final data = query.data?['users']['data'] as List<dynamic>;
     return data.map((e) => GraphqlUserTest.fromJson(e)).toList();
+  }
+
+  @override
+  Future<GraphqlUserTest> createUser(String name, {String? email}) async {
+    final result = await _client.mutate(
+      Options$Mutation$CreateUser(
+        variables: Variables$Mutation$CreateUser(name: name, email: email, auction_enabled: 0),
+      ),
+    );
+    print("creation result: $result");
+    return GraphqlUserTest(graphqlRoleTest: GraphqlRoleTest());
   }
 }

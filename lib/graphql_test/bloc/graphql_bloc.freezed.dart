@@ -55,11 +55,12 @@ extension GraphqlEventPatterns on GraphqlEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Graphql$GetUsersEvent value)?  getUsers,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Graphql$GetUsersEvent value)?  getUsers,TResult Function( _Graphql$CreateUserEvent value)?  createUser,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _Graphql$GetUsersEvent() when getUsers != null:
-return getUsers(_that);case _:
+return getUsers(_that);case _Graphql$CreateUserEvent() when createUser != null:
+return createUser(_that);case _:
   return orElse();
 
 }
@@ -77,11 +78,12 @@ return getUsers(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Graphql$GetUsersEvent value)  getUsers,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Graphql$GetUsersEvent value)  getUsers,required TResult Function( _Graphql$CreateUserEvent value)  createUser,}){
 final _that = this;
 switch (_that) {
 case _Graphql$GetUsersEvent():
-return getUsers(_that);}
+return getUsers(_that);case _Graphql$CreateUserEvent():
+return createUser(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -95,11 +97,12 @@ return getUsers(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Graphql$GetUsersEvent value)?  getUsers,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Graphql$GetUsersEvent value)?  getUsers,TResult? Function( _Graphql$CreateUserEvent value)?  createUser,}){
 final _that = this;
 switch (_that) {
 case _Graphql$GetUsersEvent() when getUsers != null:
-return getUsers(_that);case _:
+return getUsers(_that);case _Graphql$CreateUserEvent() when createUser != null:
+return createUser(_that);case _:
   return null;
 
 }
@@ -116,10 +119,11 @@ return getUsers(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  getUsers,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  getUsers,TResult Function( String name,  String? email)?  createUser,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Graphql$GetUsersEvent() when getUsers != null:
-return getUsers();case _:
+return getUsers();case _Graphql$CreateUserEvent() when createUser != null:
+return createUser(_that.name,_that.email);case _:
   return orElse();
 
 }
@@ -137,10 +141,11 @@ return getUsers();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  getUsers,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  getUsers,required TResult Function( String name,  String? email)  createUser,}) {final _that = this;
 switch (_that) {
 case _Graphql$GetUsersEvent():
-return getUsers();}
+return getUsers();case _Graphql$CreateUserEvent():
+return createUser(_that.name,_that.email);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -154,10 +159,11 @@ return getUsers();}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  getUsers,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  getUsers,TResult? Function( String name,  String? email)?  createUser,}) {final _that = this;
 switch (_that) {
 case _Graphql$GetUsersEvent() when getUsers != null:
-return getUsers();case _:
+return getUsers();case _Graphql$CreateUserEvent() when createUser != null:
+return createUser(_that.name,_that.email);case _:
   return null;
 
 }
@@ -196,6 +202,74 @@ String toString() {
 
 
 
+
+/// @nodoc
+
+
+class _Graphql$CreateUserEvent implements GraphqlEvent {
+  const _Graphql$CreateUserEvent({required this.name, this.email});
+  
+
+ final  String name;
+ final  String? email;
+
+/// Create a copy of GraphqlEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$Graphql$CreateUserEventCopyWith<_Graphql$CreateUserEvent> get copyWith => __$Graphql$CreateUserEventCopyWithImpl<_Graphql$CreateUserEvent>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Graphql$CreateUserEvent&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,name,email);
+
+@override
+String toString() {
+  return 'GraphqlEvent.createUser(name: $name, email: $email)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$Graphql$CreateUserEventCopyWith<$Res> implements $GraphqlEventCopyWith<$Res> {
+  factory _$Graphql$CreateUserEventCopyWith(_Graphql$CreateUserEvent value, $Res Function(_Graphql$CreateUserEvent) _then) = __$Graphql$CreateUserEventCopyWithImpl;
+@useResult
+$Res call({
+ String name, String? email
+});
+
+
+
+
+}
+/// @nodoc
+class __$Graphql$CreateUserEventCopyWithImpl<$Res>
+    implements _$Graphql$CreateUserEventCopyWith<$Res> {
+  __$Graphql$CreateUserEventCopyWithImpl(this._self, this._then);
+
+  final _Graphql$CreateUserEvent _self;
+  final $Res Function(_Graphql$CreateUserEvent) _then;
+
+/// Create a copy of GraphqlEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? name = null,Object? email = freezed,}) {
+  return _then(_Graphql$CreateUserEvent(
+name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
+}
 
 /// @nodoc
 mixin _$GraphqlState {

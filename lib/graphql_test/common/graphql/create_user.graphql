@@ -1,0 +1,10 @@
+mutation CreateUser($name: String!, $auction_enabled: Int!, $email: String) {
+    createUser(name: $name, auction_enabled: $auction_enabled, email: $email) {
+        id
+        name
+        auction_enabled,
+        email
+        created_at
+        updated_at
+    }
+}
