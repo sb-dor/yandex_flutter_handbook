@@ -53,7 +53,7 @@ class _GraphqlTestWidgetState extends State<GraphqlTestWidget> {
                       return ListTile(
                         title: Text("User: ${user.name}"),
                         subtitle: Text("Email: ${user.email ?? ''}"),
-                        trailing: Text("${user.id}"),
+                        trailing: Text("Role: ${user.graphqlRoleTest?.role ?? ''}"),
                       );
                     },
                   ),

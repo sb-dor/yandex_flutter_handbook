@@ -1,0 +1,20 @@
+query GetUsers($page: Int!, $first: Int!) {
+    users(page: $page, first: $first) {
+        paginatorInfo {
+            total
+            hasMorePages
+        }
+        data {
+            id
+            name
+            email
+            email_verified_at
+            created_at
+            updated_at
+            role {
+                id
+                role
+            }
+        }
+    }
+}

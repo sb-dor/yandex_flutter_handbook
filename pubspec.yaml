@@ -45,7 +45,7 @@ dependencies:
   flutter_bloc: ^9.1.1
   freezed_annotation: ^3.1.0
   json_annotation: ^4.9.0
-  graphql_flutter: ^5.2.1
+  graphql: ^5.2.2
 
 dev_dependencies:
   integration_test:
@@ -59,10 +59,11 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
-  build_runner: ^2.8.0
+  build_runner: ^2.7.1
   mockito: ^5.5.0
   freezed: ^3.2.3
   json_serializable: ^6.11.1
+  graphql_codegen: ^2.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

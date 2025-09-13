@@ -1,0 +1,12 @@
+query GetRoles($page: Int!, $first: Int!) {
+    roles(page: $page, first: $first) {
+        paginatorInfo {
+            total
+            hasMorePages
+        }
+        data {
+            id
+            role
+        }
+    }
+}
