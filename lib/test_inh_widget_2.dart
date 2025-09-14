@@ -70,7 +70,7 @@ class _TestInhWidget2ConfigState extends State<TestInhWidget2Config> {
 }
 
 class _TestInhWidget2Text extends StatefulWidget {
-  const _TestInhWidget2Text({super.key});
+  const _TestInhWidget2Text();
 
   @override
   State<_TestInhWidget2Text> createState() => _TestInhWidget2TextState();

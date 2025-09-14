@@ -13,12 +13,14 @@ sealed class TestClass {
 }
 
 final class First extends TestClass {
+  @override
   void testMethod() {
     print("first");
   }
 }
 
 final class Second extends TestClass {
+  @override
   void testMethod() {
     print("second");
   }
@@ -41,6 +43,7 @@ abstract interface class TestInterface {
 }
 
 class TestInterfaceImpl with Test1FunctionOverall implements TestInterface {
+  @override
   void test2() {}
 }
 
@@ -53,6 +56,7 @@ class JustClassTestClass implements MyAbstractMixin {
     print("JustClassTestClass");
   }
 
+  @override
   void bar() {
     print("JustClassTestClass");
   }

@@ -51,7 +51,7 @@ class _TestWidgetKeys3State extends State<TestWidgetKeys3> {
 }
 
 class _TestingWidgetWithKeyAndState extends StatefulWidget {
-  const _TestingWidgetWithKeyAndState({super.key, required this.uniqueNum});
+  const _TestingWidgetWithKeyAndState({required this.uniqueNum});
 
   final int uniqueNum;
 

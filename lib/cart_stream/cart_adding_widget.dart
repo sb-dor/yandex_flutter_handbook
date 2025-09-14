@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:yandex_flutter_handbook/cart_stream/cart_stream_controller.dart';
 import 'package:yandex_flutter_handbook/cart_stream/cart_stream_widget.dart';
 

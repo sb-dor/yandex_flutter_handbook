@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:graphql/client.dart';
 import 'package:yandex_flutter_handbook/graphql_test/common/graphql/create_user.graphql.dart';
 import 'package:yandex_flutter_handbook/graphql_test/common/graphql/get_users.graphql.dart';
-import 'package:yandex_flutter_handbook/graphql_test/models/graphql_role_test.dart';
 import 'package:yandex_flutter_handbook/graphql_test/models/graphql_user_test.dart';
 
 abstract interface class IGraphqlDatasource {

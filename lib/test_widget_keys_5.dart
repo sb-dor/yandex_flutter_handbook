@@ -51,7 +51,7 @@ class _TestWidgetKeys5State extends State<TestWidgetKeys5> {
 }
 
 class _TestDidUpdateWidgetNoKeys extends StatefulWidget {
-  const _TestDidUpdateWidgetNoKeys({super.key, required this.color});
+  const _TestDidUpdateWidgetNoKeys({required this.color});
 
   final Color color;
 

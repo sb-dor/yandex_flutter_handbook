@@ -1,5 +1,5 @@
 class TestClass1 {
-  int _privateInt = 10;
+  final int _privateInt = 10;
 }
 
 abstract interface class Test1 {

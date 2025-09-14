@@ -96,8 +96,9 @@ final class _ShimmerShaderLoader
       _shader = shader;
     } on Object catch (error, stackTrace) {
       if (kReleaseMode) return; // Dont log errors in release mode.
-      if (error is UnsupportedError)
+      if (error is UnsupportedError) {
         return; // Thats fine for HTML Renderer and unsupported platforms.
+      }
       developer.log(
         'Failed to load shader: $error',
         error: error,

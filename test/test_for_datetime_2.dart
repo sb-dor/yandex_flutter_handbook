@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:yandex_flutter_handbook/unit_tests/user_profile_repository.dart';
-import 'package:yandex_flutter_handbook/unit_tests/user_repository.dart';
 
 import 'test_for_datetime_2.mocks.dart';
 

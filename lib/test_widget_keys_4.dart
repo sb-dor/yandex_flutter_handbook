@@ -49,7 +49,7 @@ class _TestWidgetKeys4State extends State<TestWidgetKeys4> {
 }
 
 class _TestKeys extends StatelessWidget {
-  const _TestKeys({super.key, required this.color});
+  const _TestKeys({required this.color});
 
   final Color color;
 

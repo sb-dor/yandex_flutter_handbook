@@ -8,7 +8,10 @@ void main() => runApp(MaterialApp(home: GraphqlTestWidget()));
 
 IGraphqlRepository graphqlRepository() {
   final httpLink = HttpLink('http://192.168.100.62:8000/graphql');
-  final client = GraphQLClient(link: httpLink, cache: GraphQLCache());
+  final client = GraphQLClient(
+    link: httpLink,
+    cache: GraphQLCache(store: InMemoryStore()),
+  );
   final IGraphqlDatasource datasource = GeneratedGraphQlDatasourceImpl(client: client);
 
   return GraphqlRepositoryImpl(iGraphqlDatasource: datasource);

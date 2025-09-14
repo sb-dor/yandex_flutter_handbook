@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yandex_flutter_handbook/cart_stream/cart_adding_widget.dart';
 import 'package:yandex_flutter_handbook/cart_stream/cart_stream_controller.dart';
-import 'package:yandex_flutter_handbook/test_class_1.dart';
 
 import '../remember_oop_3.dart';
 
