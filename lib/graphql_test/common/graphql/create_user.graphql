@@ -1,5 +1,5 @@
-mutation CreateUser($name: String!, $auction_enabled: Int!, $email: String) {
-    createUser(name: $name, auction_enabled: $auction_enabled, email: $email) {
+mutation CreateUser($name: String!, $auction_enabled: Int!, $access_to_agents: Int! $email: String) {
+    createUser(name: $name, auction_enabled: $auction_enabled, access_to_agents: $access_to_agents, email: $email) {
         id
         name
         auction_enabled,

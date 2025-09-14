@@ -9,7 +9,7 @@ type Query {
 
 # for create and update
 type Mutation {
-    createUser(name: String!, auction_enabled: Int!, email: String): User
+    createUser(name: String!, auction_enabled: Int!, access_to_agents: Int!, email: String): User
 }
 
 type User {
@@ -20,6 +20,7 @@ type User {
     created_at: DateTime!
     updated_at: DateTime
     auction_enabled: Int!
+    access_to_agents: Int!
     role: Role
 }
 

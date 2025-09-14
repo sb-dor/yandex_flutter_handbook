@@ -55,6 +55,18 @@ class GraphqlBloc extends Bloc<GraphqlEvent, GraphqlState> {
   }
 
   void _graphql$CreateUserEvent(_Graphql$CreateUserEvent event, Emitter<GraphqlState> emit) async {
-    await _iGraphqlRepository.createUser(event.name, email: event.email);
+    try {
+      if(state is! Graphql$CompletedState) return;
+      final list = List.of((state as Graphql$CompletedState).user);
+
+      final newUser = await _iGraphqlRepository.createUser(event.name, email: event.email);
+
+      list.insert(0, newUser);
+
+      emit(GraphqlState.completed(list));
+    } catch (error, stackTrace) {
+      addError(error, stackTrace);
+      emit(GraphqlState.error());
+    }
   }
 }

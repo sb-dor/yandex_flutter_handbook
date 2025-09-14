@@ -62,6 +62,7 @@ final class GeneratedGraphQlDatasourceImpl implements IGraphqlDatasource {
   Future<List<GraphqlUserTest>> users() async {
     final options = Options$Query$GetUsers(variables: Variables$Query$GetUsers(page: 1, first: 10));
     final query = await _client.query$GetUsers(options);
+    print("getting users: $query");
     final data = query.data?['users']['data'] as List<dynamic>;
     return data.map((e) => GraphqlUserTest.fromJson(e)).toList();
   }
@@ -70,10 +71,16 @@ final class GeneratedGraphQlDatasourceImpl implements IGraphqlDatasource {
   Future<GraphqlUserTest> createUser(String name, {String? email}) async {
     final result = await _client.mutate(
       Options$Mutation$CreateUser(
-        variables: Variables$Mutation$CreateUser(name: name, email: email, auction_enabled: 0),
+        variables: Variables$Mutation$CreateUser(
+          name: name,
+          email: email,
+          access_to_agents: 0,
+          auction_enabled: 0,
+        ),
       ),
     );
     print("creation result: $result");
-    return GraphqlUserTest(graphqlRoleTest: GraphqlRoleTest());
+    final data = result.data?['createUser'];
+    return GraphqlUserTest.fromJson(data);
   }
 }
