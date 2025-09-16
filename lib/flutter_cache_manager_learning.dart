@@ -3,14 +3,23 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await ownFileManager();
+  await getSingleVideoFile();
 }
 
 // but exactly it's good to use default Cache manager
-Future<void> getSingleFile() async {
+Future<void> getSingleImageFile() async {
   print("starting to getting image file");
   final file = await DefaultCacheManager().getSingleFile(
     'https://yastatic.net/s3/ml-handbook/admin/edu_logo_0640b6dbf8.svg',
+  );
+  print(file.path);
+}
+
+Future<void> getSingleVideoFile() async {
+  print("starting to getting video file");
+  // http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4
+  final file = await DefaultCacheManager().getSingleFile(
+    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
   );
   print(file.path);
 }
