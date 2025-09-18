@@ -6,7 +6,7 @@ void main() {
 }
 
 class EnvDartDefineCompilation {
-   final String env = String.fromEnvironment("env");
+  String get env => const String.fromEnvironment('env').trim();
 
-   final String secretKey = String.fromEnvironment("secret_key");
+  String get secretKey => const String.fromEnvironment("secret_key").trim();
 }
