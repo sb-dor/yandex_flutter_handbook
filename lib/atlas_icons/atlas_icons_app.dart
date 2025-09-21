@@ -29,12 +29,16 @@ class AtlasIconsApp extends StatefulWidget {
 
 class _AtlasIconsAppState extends State<AtlasIconsApp> {
   ui.Image? atlas;
+  ui.Image? atlas2;
 
   @override
   void initState() {
     super.initState();
     loadAtlas("assets/atlas_icons/icons.png").then((img) {
       setState(() => atlas = img);
+    });
+    loadAtlas("assets/atlas_icons/icons_2.png").then((img) {
+      setState(() => atlas2 = img);
     });
   }
 
@@ -61,6 +65,10 @@ class _AtlasIconsAppState extends State<AtlasIconsApp> {
                   IconButton(
                     onPressed: () {},
                     icon: AtlasIcon(atlas: atlas!, x: 64, y: 112, width: 24, height: 24, size: 25),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: AtlasIcon(atlas: atlas2!, x: 64, y: 112, width: 24, height: 24, size: 25),
                   ),
                 ],
               ),
