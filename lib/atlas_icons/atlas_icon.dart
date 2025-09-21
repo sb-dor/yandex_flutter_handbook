@@ -17,7 +17,7 @@ class AtlasIcon extends StatelessWidget {
     required this.y,
     required this.width,
     required this.height,
-    this.size = 32,
+    this.size = 25,
   });
 
   @override

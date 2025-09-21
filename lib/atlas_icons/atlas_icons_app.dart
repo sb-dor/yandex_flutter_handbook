@@ -1,10 +1,28 @@
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+import 'package:yandex_flutter_handbook/atlas_icons/icons/atlas_icon_basket_bold.dart';
+import 'package:yandex_flutter_handbook/atlas_icons/icons/atlas_icon_basket_stroke.dart';
+import 'package:yandex_flutter_handbook/atlas_icons/icons/atlas_icon_cart_stroke.dart';
+import 'package:yandex_flutter_handbook/atlas_icons/icons/atlas_icon_phone_bold.dart';
+import 'package:yandex_flutter_handbook/atlas_icons/icons/atlas_icon_phone_stroke.dart';
 
 import 'atlas_icon.dart';
+import 'icons/atlas_icon_cart_broken.dart';
 
-void main() => runApp(MainMaterialApp());
+late final ui.Image atlas;
+late final ui.Image atlas2;
+
+Future<void> _initiateAtlas() async {
+  atlas = await loadAtlas("assets/atlas_icons/icons.png");
+  atlas2 = await loadAtlas("assets/atlas_icons/icons_2.png");
+}
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await _initiateAtlas();
+  runApp(MainMaterialApp());
+}
 
 class MainMaterialApp extends StatefulWidget {
   const MainMaterialApp({super.key});
@@ -28,51 +46,26 @@ class AtlasIconsApp extends StatefulWidget {
 }
 
 class _AtlasIconsAppState extends State<AtlasIconsApp> {
-  ui.Image? atlas;
-  ui.Image? atlas2;
-
-  @override
-  void initState() {
-    super.initState();
-    loadAtlas("assets/atlas_icons/icons.png").then((img) {
-      setState(() => atlas = img);
-    });
-    loadAtlas("assets/atlas_icons/icons_2.png").then((img) {
-      setState(() => atlas2 = img);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text("Loading data from atlas icons"),
+      ),
       body: CustomScrollView(
         slivers: [
-          if (atlas == null)
-            SliverFillRemaining(child: Center(child: const CircularProgressIndicator()))
-          else
-            SliverToBoxAdapter(
-              child: Column(
-                children: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: AtlasIcon(atlas: atlas!, x: 64, y: 16, width: 24, height: 24, size: 25),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: AtlasIcon(atlas: atlas!, x: 64, y: 64, width: 24, height: 24, size: 25),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: AtlasIcon(atlas: atlas!, x: 64, y: 112, width: 24, height: 24, size: 25),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: AtlasIcon(atlas: atlas2!, x: 64, y: 112, width: 24, height: 24, size: 25),
-                  ),
-                ],
-              ),
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                IconButton(onPressed: () {}, icon: AtlasIconPhoneStroke()),
+                IconButton(onPressed: () {}, icon: AtlasIconPhoneBold()),
+                IconButton(onPressed: () {}, icon: AtlasIconBasketStroke()),
+                IconButton(onPressed: () {}, icon: AtlasIconBasketBold()),
+                IconButton(onPressed: () {}, icon: AtlasIconCartStroke()),
+                IconButton(onPressed: () {}, icon: AtlasIconCartBroken()),
+              ],
             ),
+          ),
         ],
       ),
     );
