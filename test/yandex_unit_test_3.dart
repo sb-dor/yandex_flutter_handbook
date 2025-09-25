@@ -12,7 +12,7 @@ import 'yandex_unit_test_3.mocks.dart';
 @GenerateMocks([IUserRepository])
 void main() {
   late final MockIUserRepository mockIUserRepository;
-  final UserModel testUserModel = UserModel(id: 1, name: "Test user");
+  final UserModel testUserModel = UserModel(id: 1, name: "Test models");
 
   setUpAll(() {
     mockIUserRepository = MockIUserRepository();
@@ -22,7 +22,7 @@ void main() {
     //
     group('getUserById method', () {
       //
-      test('function should return user', () {
+      test('function should return models', () {
         //
         when(mockIUserRepository.getUserById(any)).thenAnswer((_) async => testUserModel);
 
@@ -43,7 +43,7 @@ void main() {
     //
     group('removeUserById method ', () {
       //
-      test('removeUserById should successfully remove user and return true', () {
+      test('removeUserById should successfully remove models and return true', () {
         //
         when(mockIUserRepository.removeUserById(any)).thenAnswer((_) async => true);
 
@@ -65,7 +65,7 @@ void main() {
     //
     group('createUser method', () {
       //
-      test('function should successfully create user', () {
+      test('function should successfully create models', () {
         //
         when(mockIUserRepository.createUser(any)).thenAnswer((_) async => testUserModel);
 
@@ -89,7 +89,7 @@ void main() {
     //
     group('updateUserName method', () {
       //
-      test('function should successfully update user', () {
+      test('function should successfully update models', () {
         //
         when(mockIUserRepository.updateUserName(any, any)).thenAnswer((_) async => testUserModel);
 
@@ -108,7 +108,7 @@ void main() {
       });
 
       //
-      test('function should throw a StateError due to the absence of a user', () {
+      test('function should throw a StateError due to the absence of a models', () {
         //
         when(
           mockIUserRepository.updateUserName(any, any),

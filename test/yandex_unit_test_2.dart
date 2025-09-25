@@ -52,13 +52,13 @@ void main() {
   group('UserRepository', () {
     group('getUserById method', () {
       //
-      test('should return correct UserModel for existing user specified by Id', () async {
+      test('should return correct UserModel for existing models specified by Id', () async {
         final int userId = 5;
         final user = await mockedUserRepository.getUserById(userId);
         expect(user.id, userId);
       });
 
-      test('should throw exception if user does not exist', () {
+      test('should throw exception if models does not exist', () {
         final int userId = 10;
         expect(mockedUserRepository.getUserById(userId), throwsA(isA<StateError>()));
       });
@@ -66,13 +66,13 @@ void main() {
 
     group('removeUserById method', () {
       //
-      test('should remove correctly an existing user specified by Id', () async {
+      test('should remove correctly an existing models specified by Id', () async {
         final userid = 5;
         final remove = await mockedUserRepository.removeUserById(userid);
         expect(remove, isTrue);
       });
 
-      test('should throw exception if user does not exist', () {
+      test('should throw exception if models does not exist', () {
         final userid = 10;
         final remove = mockedUserRepository.removeUserById(userid);
         expect(remove, throwsA(isA<StateError>()));
@@ -89,7 +89,7 @@ void main() {
         expect(user.name, same(name));
       });
 
-      test('should throw exception if user name is empty', () async {
+      test('should throw exception if models name is empty', () async {
         //
         final name = "";
         final user = mockedUserRepository.createUser(name);
@@ -107,7 +107,7 @@ void main() {
         expect(updateUser, completion(isNotNull));
       });
 
-      test('should throw exception if user does not exist', () {
+      test('should throw exception if models does not exist', () {
         final name = "TestUser 2";
         final id = 10;
         final updateUser = mockedUserRepository.updateUserName(id, name);

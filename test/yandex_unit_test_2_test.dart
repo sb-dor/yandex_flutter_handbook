@@ -48,26 +48,26 @@ void main() {
 
   group('UserRepositoryImpl', () {
     group('getUserById method', () {
-      test('should return correct UserModel for existing user specified by Id', () async {
+      test('should return correct UserModel for existing models specified by Id', () async {
         final user = await repository.createUser('Alice');
         final fetched = await repository.getUserById(user.id);
         expect(fetched.id, user.id);
         expect(fetched.name, 'Alice');
       });
 
-      test('should throw exception if user does not exist', () {
+      test('should throw exception if models does not exist', () {
         expect(() => repository.getUserById(999), throwsA(isA<StateError>()));
       });
     });
 
     group('removeUserById method', () {
-      test('should remove correctly an existing user specified by Id', () async {
+      test('should remove correctly an existing models specified by Id', () async {
         final user = await repository.createUser('Bob');
         repository.removeUserById(user.id);
         expect(() => repository.getUserById(user.id), throwsA(isA<StateError>()));
       });
 
-      test('should throw exception if user does not exist', () {
+      test('should throw exception if models does not exist', () {
         expect(() => repository.removeUserById(999), throwsA(isA<StateError>()));
       });
     });
@@ -79,7 +79,7 @@ void main() {
         expect(user.name, 'Charlie');
       });
 
-      test('should throw exception if user name is empty', () {
+      test('should throw exception if models name is empty', () {
         expect(() => repository.createUser(''), throwsA(isA<ArgumentError>()));
       });
     });
@@ -92,7 +92,7 @@ void main() {
         expect(updated.name, 'David');
       });
 
-      test('should throw exception if user does not exist', () {
+      test('should throw exception if models does not exist', () {
         expect(() => repository.updateUserName(999, 'Eve'), throwsA(isA<StateError>()));
       });
     });
