@@ -23,6 +23,7 @@ class LoggingInterceptor extends Interceptor {
     _logger.log(
       Level.info,
       "✅ STATUS: ${response.statusCode}\n"
+      "FROM METHOD: ${response.requestOptions.method}\n"
       "URI: ${response.requestOptions.uri}\n"
       "COMING DATA: ${response.data}",
     );

@@ -46,3 +46,4 @@ app.*.map.json
 
 *.graphql.dart
 *.mocks.dart
+*.g.dart
