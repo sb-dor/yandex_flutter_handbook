@@ -3,6 +3,7 @@ import 'package:logger/logger.dart';
 import 'package:yandex_flutter_handbook/interceptors/with_dio/api_service/api_service_iwd.dart';
 import 'package:yandex_flutter_handbook/interceptors/with_dio/api_service/logging_interceptor.dart';
 import 'package:yandex_flutter_handbook/interceptors/with_dio/api_service/token_interceptor.dart';
+import 'package:yandex_flutter_handbook/interceptors/with_dio/api_service/token_refresh_on_error_interceptor.dart';
 
 Map<String, Object?> localHash = {
   'token': 'RealTokenWhichIsNotRealI1notRealTokenR5cCI6IkpXVCJ9.ey',
@@ -24,49 +25,11 @@ void main() async {
   final logger = Logger();
   dio.interceptors.addAll([
     TokenInterceptor(localHash: localHash, logger: logger),
-    LoginInterceptor(logger),
+    LoggingInterceptor(logger),
+    TokenRefreshOnErrorInterceptor(localHash: localHash, dio: dio),
   ]);
 
   final apiService = ApiServiceIwd(dio: dio);
 
   await apiService.getUser("1");
 }
-
-// just an example
-Future<void> _refreshToken(Dio dio) async {
-  final response = await dio.post(
-    "https://example.com/api/refresh",
-    data: {"refresh_token": localHash['token']},
-  );
-
-  localHash['token'] = response.data;
-}
-
-// InterceptorsWrapper(
-//       onRequest: (RequestOptions options, RequestInterceptorHandler handler) {
-//         options.headers['X-Some-Data'] = "plaintext";
-//
-//         return handler.next(options);
-//       },
-//       onResponse: (Response response, ResponseInterceptorHandler handler) {
-//         print('coming response: $response');
-//
-//         return handler.next(response);
-//       },
-//       onError: (DioException error, ErrorInterceptorHandler handler) async {
-//         print("Coming error: ${error.message}");
-//
-//         // if we are unauthorized using current token
-//         // we will get new token and make request once again
-//         if (error.response?.statusCode == 401) {
-//           print("Unauthenticated exception");
-//           await _refreshToken(dio);
-//           final opts = error.requestOptions;
-//           opts.headers['Authorization'] = 'Bearer ${localHash['token']}';
-//           final response = await dio.fetch(opts);
-//           return handler.resolve(response);
-//         }
-//
-//         return handler.next(error);
-//       },
-//     ),

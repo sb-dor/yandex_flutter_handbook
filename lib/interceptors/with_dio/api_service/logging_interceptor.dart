@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
 
-class LoginInterceptor extends Interceptor {
-  LoginInterceptor(this._logger);
+class LoggingInterceptor extends Interceptor {
+  LoggingInterceptor(this._logger);
 
   final Logger _logger;
 
