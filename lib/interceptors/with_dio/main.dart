@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
 import 'package:yandex_flutter_handbook/interceptors/with_dio/api_service/api_service_iwd.dart';
+import 'package:yandex_flutter_handbook/interceptors/with_dio/api_service/logging_interceptor.dart';
 import 'package:yandex_flutter_handbook/interceptors/with_dio/api_service/token_interceptor.dart';
 
 Map<String, Object?> localHash = {
@@ -20,7 +21,11 @@ void main() async {
     ),
   );
 
-  dio.interceptors.add(TokenInterceptor(localHash: localHash, logger: Logger()));
+  final logger = Logger();
+  dio.interceptors.addAll([
+    TokenInterceptor(localHash: localHash, logger: logger),
+    LoginInterceptor(logger),
+  ]);
 
   final apiService = ApiServiceIwd(dio: dio);
 
