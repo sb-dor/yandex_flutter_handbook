@@ -69,21 +69,20 @@ class _CartAddingWidgetUIState extends State<_CartAddingWidgetUI> {
   void initState() {
     super.initState();
     _cartStreamController = CartAddingInhWidget.of(context).cartStreamController;
-    _cartStreamSubs = _cartStreamController.cartItemStream
-        .listen(
-          (data) {
-            print("subs coming data: $data");
-            if (data.cartItems.length == 4) {
-              _cartStreamSubs.cancel();
-            }
-          },
-          onDone: () {
-            print("on Stream done");
-          },
-          onError: (error) {
-            print("on Stream error");
-          },
-        );
+    _cartStreamSubs = _cartStreamController.cartItemStream.listen(
+      (data) {
+        print("subs coming data: $data");
+        if (data.cartItems.length == 4) {
+          _cartStreamSubs.cancel();
+        }
+      },
+      onDone: () {
+        print("on Stream done");
+      },
+      onError: (error) {
+        print("on Stream error");
+      },
+    );
   }
 
   @override
