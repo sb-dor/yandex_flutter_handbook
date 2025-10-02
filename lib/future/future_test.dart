@@ -1,7 +1,9 @@
-import 'dart:developer';
-
 import 'package:yandex_flutter_handbook/future/api_for_future.dart';
 import 'package:yandex_flutter_handbook/interceptors/with_dio/models/user_iwd.dart';
+
+void orderByNameDesc(List<UserIWD> users) {
+  users.sort((a, b) => b.name.compareTo(a.name));
+}
 
 void main() async {
   final api = ApiForFuture();
@@ -20,8 +22,4 @@ void main() async {
       .whenComplete(() {
         print("prints regardless of what 'future' returned - an error or result");
       });
-}
-
-void orderByNameDesc(List<UserIWD> users) {
-  users.sort((a, b) => b.name.compareTo(a.name));
 }
