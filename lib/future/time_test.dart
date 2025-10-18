@@ -1,6 +1,5 @@
 import 'dart:async';
 
-
 // instead of print1, print7 and Future.microtasks
 // others doing the same thing
 // because Future calls Timer.run(callback) -> Timer(Duration.zero, callback) -> Zone.current.createTimer(Duration.zero, callback)
@@ -16,7 +15,6 @@ void main() {
 
   // 3
   Future.microtask(() => print("4"));
-
 
   // 7
   Zone.current.createTimer(Duration.zero, () => print("5"));
