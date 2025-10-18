@@ -50,7 +50,16 @@ class _LocalizationHomeWidgetState extends State<_LocalizationHomeWidget> {
       body: Center(
         child: TextButton(
           onPressed: () {
-            increment();
+            Navigator.push(
+              context,
+              DialogRoute(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(title: Text("Test"));
+                },
+              ),
+            );
+            // increment();
           },
           child: Text(
             AppLocalizations.of(
